@@ -1,9 +1,8 @@
 package com.example.wagetracker
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -14,15 +13,22 @@ import com.google.gson.reflect.TypeToken
 import java.text.SimpleDateFormat
 import java.util.*
 
+data class MonthTotals(
+    val cardTips: Double,
+    val cashTips: Double,
+    val cashPaidIn: Double,
+    val owed: Double
+)
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: RecordAdapter
     private val records = mutableListOf<DailyRecord>()
+    private val paidMonths = mutableListOf<PaidMonthRecord>()
     private val sharedPrefs by lazy { getSharedPreferences("wages_tracker", MODE_PRIVATE) }
     private val gson = Gson()
 
     private var currentMonth = Calendar.getInstance()
-    private var searchQuery = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,59 +37,125 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
         loadRecords()
+        loadPaidMonths()
         updateMonthDisplay()
         updateSummary()
-        filterRecords()
 
         binding.btnAddRecord.setOnClickListener {
             showAddRecordDialog()
         }
 
+        binding.btnMarkPaid.setOnClickListener {
+            showMarkPaidDialog()
+        }
+
         binding.btnPrevMonth.setOnClickListener {
             currentMonth.add(Calendar.MONTH, -1)
             updateMonthDisplay()
-            filterRecords()
             updateSummary()
         }
 
         binding.btnNextMonth.setOnClickListener {
             currentMonth.add(Calendar.MONTH, 1)
             updateMonthDisplay()
-            filterRecords()
             updateSummary()
         }
-
-        binding.etSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                searchQuery = s.toString().lowercase()
-                filterRecords()
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
     }
 
-    private fun setupRecyclerView() {
-        adapter = RecordAdapter(records) { record ->
-            // Find and remove the record by its date
-            val actualPosition = records.indexOfFirst { it.date == record.date }
-            if (actualPosition != -1) {
-                records.removeAt(actualPosition)
-                saveRecords()
-                filterRecords()
-                updateSummary()
+    private fun getMonthKey(date: Calendar): String {
+        return SimpleDateFormat("yyyy-MM", Locale.ENGLISH).format(date.time)
+    }
+
+    private fun getMonthName(date: Calendar): String {
+        return SimpleDateFormat("MMMM yyyy", Locale.ENGLISH).format(date.time)
+    }
+
+    private fun isMonthPaid(): Boolean {
+        val monthKey = getMonthKey(currentMonth)
+        return paidMonths.any { it.monthKey == monthKey }
+    }
+
+    private fun showMarkPaidDialog() {
+        val monthName = getMonthName(currentMonth)
+        val currentOwed = calculateCurrentMonthOwed()
+
+        if (currentOwed <= 0) {
+            Toast.makeText(this, "No amount owed for $monthName", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (isMonthPaid()) {
+            Toast.makeText(this, "$monthName has already been marked as paid", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val dialogView = layoutInflater.inflate(R.layout.dialog_paid_month, null)
+        val tvMonthInfo = dialogView.findViewById<TextView>(R.id.tvMonthInfo)
+        tvMonthInfo.text = "$monthName\nAmount Owed: R${String.format("%.0f", currentOwed)}"
+
+        AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setPositiveButton("Confirm Paid") { _, _ ->
+                markMonthAsPaid()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun markMonthAsPaid() {
+        val monthKey = getMonthKey(currentMonth)
+        val monthName = getMonthName(currentMonth)
+        val (cardTips, cashTips, cashPaidIn, owed) = calculateMonthTotals()
+        val currentDate = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(Date())
+
+        val paidRecord = PaidMonthRecord(
+            monthKey = monthKey,
+            monthName = monthName,
+            paidDate = currentDate,
+            amountOwed = owed,
+            totalCardTips = cardTips,
+            totalCashTips = cashTips,
+            totalCashPaidIn = cashPaidIn
+        )
+
+        paidMonths.add(paidRecord)
+        savePaidMonths()
+
+        Toast.makeText(this, "$monthName marked as paid! Amount R${String.format("%.0f", owed)}", Toast.LENGTH_LONG).show()
+
+        // Refresh display (owed will show 0 for this month)
+        updateSummary()
+    }
+
+    private fun calculateMonthTotals(): MonthTotals {
+        var totalCardTips = 0.0
+        var totalCashTips = 0.0
+        var totalCashPaidIn = 0.0
+
+        val monthKey = getMonthKey(currentMonth)
+
+        for (record in records) {
+            if (!record.isOff && record.monthKey == monthKey) {
+                totalCardTips += record.cardTips
+                totalCashTips += record.cashTips
+                totalCashPaidIn += record.cashPaidIn
             }
         }
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = adapter
+
+        val owed = totalCardTips + totalCashPaidIn
+        return MonthTotals(totalCardTips, totalCashTips, totalCashPaidIn, owed)
+    }
+
+    private fun calculateCurrentMonthOwed(): Double {
+        return calculateMonthTotals().owed
     }
 
     private fun showAddRecordDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_record, null)
         val etDate = dialogView.findViewById<EditText>(R.id.etDate)
-        val etTips = dialogView.findViewById<EditText>(R.id.etTips)
-        val etCashPaid = dialogView.findViewById<EditText>(R.id.etCashPaid)
-        val etCardPaid = dialogView.findViewById<EditText>(R.id.etCardPaid)
+        val etCardTips = dialogView.findViewById<EditText>(R.id.etCardTips)
+        val etCashTips = dialogView.findViewById<EditText>(R.id.etCashTips)
+        val etCashPaidIn = dialogView.findViewById<EditText>(R.id.etCashPaidIn)
 
         AlertDialog.Builder(this)
             .setTitle("Add Daily Entry")
@@ -91,59 +163,63 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Save") { _, _ ->
                 val date = etDate.text.toString()
                 if (date.isNotEmpty()) {
-                    val cardAmount = etCardPaid.text.toString().toDoubleOrNull() ?: 0.0
-                    val cashAmount = etCashPaid.text.toString().toDoubleOrNull() ?: 0.0
+                    val cardTips = etCardTips.text.toString().toDoubleOrNull() ?: 0.0
+                    val cashTips = etCashTips.text.toString().toDoubleOrNull() ?: 0.0
+                    val cashPaidIn = etCashPaidIn.text.toString().toDoubleOrNull() ?: 0.0
 
-                    val record = DailyRecord(
+                    // Parse month from date
+                    val monthKey = parseMonthKey(date)
+
+                    val newRecord = DailyRecord(
                         date = date,
-                        tipsToPay = cardAmount,  // Card tips
-                        cashPaidIn = cashAmount,  // Cash tips
-                        cardPaidIn = 0.0,
-                        isOff = false
+                        cardTips = cardTips,
+                        cashTips = cashTips,
+                        cashPaidIn = cashPaidIn,
+                        isOff = false,
+                        monthKey = monthKey
                     )
-                    records.add(record)
+
+                    records.add(newRecord)
                     saveRecords()
-                    filterRecords()
                     updateSummary()
+
+                    Toast.makeText(this, "Added: $date", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Please enter a date", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("Cancel", null)
             .show()
     }
 
-    private fun filterRecords() {
-        val filtered = records.filter { record ->
-            val matchesMonth = isInCurrentMonth(record.date)
-            val matchesSearch = if (searchQuery.isNotEmpty()) {
-                record.date.lowercase().contains(searchQuery)
-            } else true
-            matchesMonth && matchesSearch
+    private fun parseMonthKey(dateString: String): String {
+        val months = mapOf(
+            "january" to 1, "february" to 2, "march" to 3, "april" to 4,
+            "may" to 5, "june" to 6, "july" to 7, "august" to 8,
+            "september" to 9, "october" to 10, "november" to 11, "december" to 12
+        )
+
+        val lowerDate = dateString.lowercase()
+        for ((month, number) in months) {
+            if (lowerDate.contains(month)) {
+                val year = Calendar.getInstance().get(Calendar.YEAR)
+                return String.format("%d-%02d", year, number)
+            }
         }
-        adapter.updateRecords(filtered.sortedByDescending { parseDate(it.date) })
+        return getMonthKey(currentMonth)
     }
 
-    private fun isInCurrentMonth(dateString: String): Boolean {
-        try {
-            val date = parseDate(dateString)
-            return date?.get(Calendar.MONTH) == currentMonth.get(Calendar.MONTH) &&
-                    date.get(Calendar.YEAR) == currentMonth.get(Calendar.YEAR)
-        } catch (e: Exception) {
-            return true
+    private fun setupRecyclerView() {
+        adapter = RecordAdapter(records) { record ->
+            val position = records.indexOfFirst { it.date == record.date }
+            if (position != -1) {
+                records.removeAt(position)
+                saveRecords()
+                updateSummary()
+            }
         }
-    }
-
-    private fun parseDate(dateString: String): Calendar? {
-        val formats = listOf("d MMM yyyy", "d MMMM yyyy", "d MMM", "d MMMM", "d MMMM yyyy")
-        for (format in formats) {
-            try {
-                val sdf = SimpleDateFormat(format, Locale.ENGLISH)
-                val date = sdf.parse(dateString)
-                if (date != null) {
-                    return Calendar.getInstance().apply { time = date }
-                }
-            } catch (e: Exception) { }
-        }
-        return null
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = adapter
     }
 
     private fun updateMonthDisplay() {
@@ -152,33 +228,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateSummary() {
-        // Get records for current month only
-        val monthRecords = records.filter { isInCurrentMonth(it.date) }
+        val totals = calculateMonthTotals()
+        val monthKey = getMonthKey(currentMonth)
+        val isPaid = isMonthPaid()
 
-        var totalCardTips = 0.0
-        var totalCashTips = 0.0
-        var totalCashPaidIn = 0.0
+        val totalCardCashTips = totals.cardTips + totals.cashTips
+        // If month is paid, owed amount is 0
+        val totalOwed = if (isPaid) 0.0 else totals.owed
 
-        for (record in monthRecords) {
-            if (!record.isOff) {
-                totalCardTips += record.tipsToPay
-                totalCashTips += record.cashPaidIn
-                totalCashPaidIn += record.cardPaidIn
-            }
-        }
-
-        val totalTips = totalCardTips + totalCashTips
-        // Owed = (Card Tips + Cash Paid In) - Cash Tips
-        val totalOwed = (totalCardTips + totalCashPaidIn) - totalCashTips
-
-        binding.totalCardTips.text = String.format("R%.0f", totalCardTips)
-        binding.totalCashTips.text = String.format("R%.0f", totalCashTips)
-        binding.totalTips.text = String.format("R%.0f", totalTips)
-        binding.totalCashPaidIn.text = String.format("R%.0f", totalCashPaidIn)
+        binding.totalCardTips.text = String.format("R%.0f", totals.cardTips)
+        binding.totalCashTips.text = String.format("R%.0f", totals.cashTips)
+        binding.totalCardCashTips.text = String.format("R%.0f", totalCardCashTips)
+        binding.totalCashPaidIn.text = String.format("R%.0f", totals.cashPaidIn)
         binding.totalOwed.text = String.format("R%.0f", totalOwed)
 
-        // Show calculation
-        binding.tvCalculation.text = "Calculation: (R${String.format("%.0f", totalCardTips)} + R${String.format("%.0f", totalCashPaidIn)}) - R${String.format("%.0f", totalCashTips)} = R${String.format("%.0f", totalOwed)}"
+        // Show paid status
+        if (isPaid) {
+            binding.totalOwed.setBackgroundColor(resources.getColor(android.R.color.holo_green_light))
+            Toast.makeText(this, "✓ ${getMonthName(currentMonth)} has been paid", Toast.LENGTH_SHORT).show()
+        } else {
+            binding.totalOwed.setBackgroundColor(resources.getColor(android.R.color.holo_blue_light))
+        }
+
+        // Filter records for current month
+        val monthRecords = records.filter { it.monthKey == monthKey }
+        adapter.updateRecords(monthRecords.sortedByDescending { it.date })
     }
 
     private fun saveRecords() {
@@ -192,5 +266,18 @@ class MainActivity : AppCompatActivity() {
         val loadedRecords: MutableList<DailyRecord> = gson.fromJson(json, type)
         records.clear()
         records.addAll(loadedRecords)
+    }
+
+    private fun savePaidMonths() {
+        val json = gson.toJson(paidMonths)
+        sharedPrefs.edit().putString("paid_months", json).apply()
+    }
+
+    private fun loadPaidMonths() {
+        val json = sharedPrefs.getString("paid_months", "[]")
+        val type = object : TypeToken<MutableList<PaidMonthRecord>>() {}.type
+        val loaded: MutableList<PaidMonthRecord> = gson.fromJson(json, type)
+        paidMonths.clear()
+        paidMonths.addAll(loaded)
     }
 }

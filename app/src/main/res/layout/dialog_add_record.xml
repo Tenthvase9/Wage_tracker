@@ -8,40 +8,52 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Entry"
+        android:text="Add Daily Entry"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp"/>
 
+    <!-- Date -->
     <EditText
         android:id="@+id/etDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Date (e.g., 1 April)"
+        android:hint="Date (e.g., 1st April)"
         android:inputType="text"
         android:layout_marginBottom="12dp"/>
 
+    <!-- Card Tips (Column B in your Excel) -->
     <EditText
-        android:id="@+id/etTips"
+        android:id="@+id/etCardTips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tips (R)"
+        android:hint="Card Tips (R)"
         android:inputType="numberDecimal"
         android:layout_marginBottom="12dp"/>
 
+    <!-- Cash Tips (Column C in your Excel) -->
     <EditText
-        android:id="@+id/etCashPaid"
+        android:id="@+id/etCashTips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Cash Tips (R)"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Cash Paid In (Column D in your Excel) -->
+    <EditText
+        android:id="@+id/etCashPaidIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Cash Paid In (R)"
         android:inputType="numberDecimal"
-        android:layout_marginBottom="12dp"/>
+        android:layout_marginBottom="8dp"/>
 
-    <EditText
-        android:id="@+id/etCardPaid"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Card Paid In (R)"
-        android:inputType="numberDecimal"/>
+        android:text="Cash Paid In = money you gave to be banked"
+        android:textSize="11sp"
+        android:textColor="#999999"/>
 
 </LinearLayout>

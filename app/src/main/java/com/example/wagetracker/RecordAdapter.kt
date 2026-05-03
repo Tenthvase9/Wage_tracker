@@ -20,9 +20,10 @@ class RecordAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val record = records[position]
         holder.binding.apply {
-            tvDate.text = record.date
-            tvCard.text = if (record.isOff) "OFF" else String.format("R%.0f", record.tipsToPay)
-            tvCash.text = if (record.isOff) "" else String.format("R%.0f", record.cashPaidIn)
+            tvDate.text = if (record.isOff) "${record.date} (OFF)" else record.date
+            tvCardTips.text = if (record.isOff) "-" else String.format("R%.0f", record.cardTips)
+            tvCashTips.text = if (record.isOff) "-" else String.format("R%.0f", record.cashTips)
+            tvCashPaidIn.text = if (record.isOff) "-" else String.format("R%.0f", record.cashPaidIn)
 
             btnDelete.setOnClickListener { onDeleteClick(record) }
         }

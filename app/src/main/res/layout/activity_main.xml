@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Wage Tracker"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -27,115 +27,166 @@
             android:layout_height="wrap_content"
             android:text="Tip Management"
             android:textColor="#BBDEFB"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"/>
+            android:textSize="12sp"/>
+    </LinearLayout>
 
-        <!-- Month Selector -->
-        <LinearLayout
-            android:layout_width="match_parent"
+    <!-- Month Selector -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp">
+
+        <Button
+            android:id="@+id/btnPrevMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="◀"
+            android:background="@android:color/transparent"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tvCurrentMonth"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_weight="1"
+            android:text="April 2026"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
 
-            <Button
-                android:id="@+id/btnPrevMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="◀"
-                android:background="@android:color/transparent"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"/>
+        <Button
+            android:id="@+id/btnNextMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="▶"
+            android:background="@android:color/transparent"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <!-- Add Button Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="12dp">
 
-            <TextView
-                android:id="@+id/tvCurrentMonth"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="April 2026"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddRecord"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="+ ADD NEW DAY"
+            android:layout_marginEnd="6dp"
+            app:cornerRadius="8dp"/>
 
-            <Button
-                android:id="@+id/btnNextMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="▶"
-                android:background="@android:color/transparent"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"/>
-        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMarkPaid"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="✓ MONTH PAID"
+            android:layout_marginStart="6dp"
+            app:cornerRadius="8dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
     </LinearLayout>
 
     <!-- Summary Card -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
-        android:layout_margin="12dp">
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="12dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Monthly Summary"
-                android:textSize="16sp"
+                android:text="MONTHLY SUMMARY"
+                android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="12dp"/>
+                android:textColor="#666666"/>
 
-            <!-- Card Tips -->
+            <!-- Total Card Tips -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
+                android:layout_marginTop="8dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Total Card Tips:"
-                    android:textSize="14sp"/>
+                    android:textSize="13sp"/>
 
                 <TextView
                     android:id="@+id/totalCardTips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="R0"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="#2196F3"/>
             </LinearLayout>
 
-            <!-- Cash Tips -->
+            <!-- Total Cash Tips -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
+                android:layout_marginTop="4dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Total Cash Tips:"
-                    android:textSize="14sp"/>
+                    android:textSize="13sp"/>
 
                 <TextView
                     android:id="@+id/totalCashTips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="R0"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="#4CAF50"/>
+            </LinearLayout>
+            <!-- Total Card + Cash Tips (New separate row) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total Card + Cash Tips:"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:id="@+id/totalCardCashTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R0"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF9800"/>
             </LinearLayout>
 
             <!-- Total Tips -->
@@ -143,44 +194,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
+                android:layout_marginTop="4dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Total Tips (Card + Cash):"
-                    android:textSize="14sp"/>
+                    android:text="Total Tips:"
+                    android:textSize="13sp"/>
 
                 <TextView
                     android:id="@+id/totalTips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="R0"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"/>
             </LinearLayout>
 
-            <!-- Cash Paid In -->
+            <!-- Total Cash Paid In -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
+                android:layout_marginTop="4dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Total Cash Paid In:"
-                    android:textSize="14sp"/>
+                    android:textSize="13sp"/>
 
                 <TextView
                     android:id="@+id/totalCashPaidIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="R0"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"/>
             </LinearLayout>
 
@@ -190,21 +241,20 @@
                 android:background="#E0E0E0"
                 android:layout_marginVertical="8dp"/>
 
-            <!-- Total Owed (Highlighted) -->
+            <!-- Owed Amount -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="#E3F2FD"
-                android:padding="12dp"
-                android:layout_marginTop="4dp">
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TOTAL OWED TO YOU:"
-                    android:textSize="16sp"
+                    android:text="YOU ARE OWED:"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#2196F3"/>
 
@@ -213,66 +263,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="R0"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#2196F3"/>
             </LinearLayout>
-
-            <!-- Calculation explanation -->
-            <TextView
-                android:id="@+id/tvCalculation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="11sp"
-                android:textColor="#999999"
-                android:layout_marginTop="8dp"/>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Daily Input Section -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="12dp"
-        android:layout_marginBottom="8dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Daily Input"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddRecord"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:text="+ Add New Day"
-            android:textSize="12sp"
-            app:cornerRadius="16dp"/>
-    </LinearLayout>
-
-    <!-- Search -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginBottom="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search dates..."
-            android:inputType="text"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- List Header -->
+    <!-- Table Headers -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -284,10 +283,10 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="Dates"
+            android:layout_weight="1.5"
+            android:text="Date"
             android:textStyle="bold"
-            android:textSize="12sp"/>
+            android:textSize="11sp"/>
 
         <TextView
             android:layout_width="0dp"
@@ -295,7 +294,7 @@
             android:layout_weight="1"
             android:text="Card"
             android:textStyle="bold"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:gravity="end"/>
 
         <TextView
@@ -304,11 +303,26 @@
             android:layout_weight="1"
             android:text="Cash"
             android:textStyle="bold"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:gravity="end"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Paid In"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:gravity="end"/>
+
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textStyle="bold"/>
     </LinearLayout>
 
-    <!-- List of entries -->
+    <!-- List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

@@ -12,28 +12,37 @@
         android:id="@+id/tvDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:textSize="14sp"/>
+        android:layout_weight="1.5"
+        android:textSize="12sp"/>
 
-    <!-- Card -->
+    <!-- Card Tips -->
     <TextView
-        android:id="@+id/tvCard"
+        android:id="@+id/tvCardTips"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:gravity="end"
         android:textColor="#2196F3"/>
 
-    <!-- Cash -->
+    <!-- Cash Tips -->
     <TextView
-        android:id="@+id/tvCash"
+        android:id="@+id/tvCashTips"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:gravity="end"
         android:textColor="#4CAF50"/>
+
+    <!-- Cash Paid In -->
+    <TextView
+        android:id="@+id/tvCashPaidIn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="12sp"
+        android:gravity="end"/>
 
     <!-- Delete button -->
     <ImageView
@@ -41,7 +50,6 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:src="@android:drawable/ic_menu_delete"
-        android:padding="4dp"
-        android:layout_marginStart="8dp"/>
+        android:padding="4dp"/>
 
 </LinearLayout>
