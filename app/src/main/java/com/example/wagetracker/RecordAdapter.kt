@@ -7,7 +7,8 @@ import com.example.wagetracker.databinding.ItemRecordBinding
 
 class RecordAdapter(
     private var records: List<DailyRecord>,
-    private val onDeleteClick: (DailyRecord) -> Unit
+    private val onDeleteClick: (DailyRecord) -> Unit,
+    private val onEditClick: (DailyRecord) -> Unit
 ) : RecyclerView.Adapter<RecordAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemRecordBinding) : RecyclerView.ViewHolder(binding.root)
@@ -26,6 +27,7 @@ class RecordAdapter(
             tvCashPaidIn.text = if (record.isOff) "-" else String.format("R%.0f", record.cashPaidIn)
 
             btnDelete.setOnClickListener { onDeleteClick(record) }
+            btnEdit.setOnClickListener { onEditClick(record) }
         }
     }
 
