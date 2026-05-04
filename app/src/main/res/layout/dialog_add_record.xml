@@ -13,14 +13,37 @@
         android:textStyle="bold"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Date -->
-    <EditText
-        android:id="@+id/etDate"
+    <!-- Date Row with Picker -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Date (e.g., 1st April)"
-        android:inputType="text"
-        android:layout_marginBottom="12dp"/>
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date"
+                android:inputType="text"
+                android:focusable="false"
+                android:cursorVisible="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnPickDate"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:text="📅"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#2196F3"/>
+    </LinearLayout>
 
     <!-- Card Tips (Column B in your Excel) -->
     <EditText

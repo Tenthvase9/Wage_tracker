@@ -1,6 +1,7 @@
 package com.example.wagetracker
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -197,9 +198,15 @@ class MainActivity : AppCompatActivity() {
     private fun showAddRecordDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_record, null)
         val etDate = dialogView.findViewById<EditText>(R.id.etDate)
+        val btnPickDate = dialogView.findViewById<Button>(R.id.btnPickDate)
         val etCardTips = dialogView.findViewById<EditText>(R.id.etCardTips)
         val etCashTips = dialogView.findViewById<EditText>(R.id.etCashTips)
         val etCashPaidIn = dialogView.findViewById<EditText>(R.id.etCashPaidIn)
+
+        // Date picker button click
+        btnPickDate.setOnClickListener {
+            showDatePickerDialog(etDate)
+        }
 
         AlertDialog.Builder(this)
             .setTitle("Add Daily Entry")
@@ -211,7 +218,6 @@ class MainActivity : AppCompatActivity() {
                     val cashTips = etCashTips.text.toString().toDoubleOrNull() ?: 0.0
                     val cashPaidIn = etCashPaidIn.text.toString().toDoubleOrNull() ?: 0.0
 
-                    // Parse month from date
                     val monthKey = parseMonthKey(date)
 
                     val newRecord = DailyRecord(
@@ -229,11 +235,60 @@ class MainActivity : AppCompatActivity() {
 
                     Toast.makeText(this, "Added: $date", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "Please enter a date", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+    private fun showDatePickerDialog(etDate: EditText) {
+        // Get current month/year from the month selector
+        val year = currentMonth.get(Calendar.YEAR)
+        val month = currentMonth.get(Calendar.MONTH)
+
+        val datePicker = android.app.DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, dayOfMonth ->
+                val monthName = when (selectedMonth) {
+                    0 -> "January"
+                    1 -> "February"
+                    2 -> "March"
+                    3 -> "April"
+                    4 -> "May"
+                    5 -> "June"
+                    6 -> "July"
+                    7 -> "August"
+                    8 -> "September"
+                    9 -> "October"
+                    10 -> "November"
+                    else -> "December"
+                }
+
+                val suffix = when (dayOfMonth) {
+                    1, 21, 31 -> "st"
+                    2, 22 -> "nd"
+                    3, 23 -> "rd"
+                    else -> "th"
+                }
+
+                val dateString = "$dayOfMonth$suffix $monthName"
+                etDate.setText(dateString)
+            },
+            year,
+            month,
+            currentMonth.get(Calendar.DAY_OF_MONTH)
+        )
+
+        // Restrict to current month only
+        val datePickerDialog = datePicker.datePicker
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, 1)
+        datePickerDialog.minDate = calendar.timeInMillis
+        calendar.set(year, month, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
+        datePickerDialog.maxDate = calendar.timeInMillis
+
+        datePicker.show()
     }
 
     private fun parseMonthKey(dateString: String): String {
@@ -314,12 +369,23 @@ class MainActivity : AppCompatActivity() {
 
         // Filter records for current month
         val monthRecords = records.filter { it.monthKey == monthKey }
-        adapter.updateRecords(monthRecords.sortedByDescending { it.date })
+        adapter.updateRecords(monthRecords.sortedBy { parseDateForSort(it.date) })
 
         // Update the mini chart
         updateMiniChart()
     }
+    private fun parseDateForSort(dateString: String): Long {
+        // Try to extract day number from date string
+        val dayMatch = Regex("""(\d+)(?:st|nd|rd|th)""").find(dateString)
+        val day = dayMatch?.groupValues?.get(1)?.toIntOrNull() ?: 0
 
+        // Get month from current month selector
+        val month = currentMonth.get(Calendar.MONTH) + 1
+        val year = currentMonth.get(Calendar.YEAR)
+
+        // Create a sortable date (year-month-day)
+        return String.format("%d%02d%02d", year, month, day).toLong()
+    }
     private fun saveRecords() {
         val json = gson.toJson(records)
         sharedPrefs.edit().putString("records", json).apply()
@@ -559,13 +625,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun showEditDialog(record: DailyRecord) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_edit_record, null)
-        val tvEditDate = dialogView.findViewById<TextView>(R.id.tvEditDate)
+        val etEditDate = dialogView.findViewById<EditText>(R.id.etEditDate)
+        val btnEditPickDate = dialogView.findViewById<Button>(R.id.btnEditPickDate)
         val etCardTips = dialogView.findViewById<EditText>(R.id.etEditCardTips)
         val etCashTips = dialogView.findViewById<EditText>(R.id.etEditCashTips)
         val etCashPaidIn = dialogView.findViewById<EditText>(R.id.etEditCashPaidIn)
 
         // Show which date we're editing
-        tvEditDate.text = "Editing: ${record.date}"
+        etEditDate.setText(record.date)
+
+        btnEditPickDate.setOnClickListener {
+            showDatePickerDialog(etEditDate)
+        }
 
         // Pre-fill with existing values
         etCardTips.setText(if (record.cardTips > 0) String.format("%.0f", record.cardTips) else "")
