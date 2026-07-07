@@ -2,19 +2,32 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
 
-    <!-- Light mode background -->
-    <color name="background_light">#F5F5F5</color>
+    <!-- Brand -->
+    <color name="brand_primary">#1565C0</color>
+    <color name="brand_primary_dark">#0D47A1</color>
+    <color name="brand_on_primary">#FFFFFF</color>
 
-    <!-- Dark mode background -->
-    <color name="background_dark">#121212</color>
+    <!-- Surface / background (light) -->
+    <color name="surface_light">#F7F8FA</color>
+    <color name="surface_card_light">#FFFFFF</color>
+    <color name="on_surface_light">#1A1C1E</color>
+    <color name="on_surface_variant_light">#43474E</color>
+    <color name="outline_light">#E2E5EA</color>
 
-    <!-- Card colors for dark mode -->
-    <color name="card_light">#FFFFFF</color>
-    <color name="card_dark">#1E1E1E</color>
+    <!-- Surface / background (dark) - warm, easy-on-eyes grays -->
+    <color name="surface_dark">#111318</color>
+    <color name="surface_card_dark">#1B1E24</color>
+    <color name="on_surface_dark">#DFE2E8</color>
+    <color name="on_surface_variant_dark">#A5AAB5</color>
+    <color name="outline_dark">#2A2E37</color>
+
+    <!-- Money semantic colors -->
+    <color name="wage_card">#1565C0</color>
+    <color name="wage_cash">#2E7D32</color>
+    <color name="wage_paid_in">#6A4C93</color>
+    <color name="wage_owed">#0D47A1</color>
+    <color name="wage_short">#C62828</color>
+    <color name="wage_paid">#2E7D32</color>
+    <color name="wage_off">#7A8794</color>
 </resources>

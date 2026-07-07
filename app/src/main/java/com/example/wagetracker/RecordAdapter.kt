@@ -1,40 +1,68 @@
 package com.example.wagetracker
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wagetracker.databinding.ItemRecordBinding
 
 class RecordAdapter(
-    private var records: List<DailyRecord>,
     private val onDeleteClick: (DailyRecord) -> Unit,
     private val onEditClick: (DailyRecord) -> Unit
-) : RecyclerView.Adapter<RecordAdapter.ViewHolder>() {
+) : ListAdapter<DailyRecord, RecordAdapter.ViewHolder>(DIFF) {
 
-    class ViewHolder(val binding: ItemRecordBinding) : RecyclerView.ViewHolder(binding.root)
+    init {
+        setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int): Long =
+        getItem(position).id.hashCode().toLong()
+
+    inner class ViewHolder(val binding: ItemRecordBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemRecordBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemRecordBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val record = records[position]
+        val record = getItem(position)
         holder.binding.apply {
             tvDate.text = if (record.isOff) "${record.date} (OFF)" else record.date
-            tvCardTips.text = if (record.isOff) "-" else String.format("R%.0f", record.cardTips)
-            tvCashTips.text = if (record.isOff) "-" else String.format("R%.0f", record.cashTips)
-            tvCashPaidIn.text = if (record.isOff) "-" else String.format("R%.0f", record.cashPaidIn)
 
-            btnDelete.setOnClickListener { onDeleteClick(record) }
-            btnEdit.setOnClickListener { onEditClick(record) }
+            if (record.isOff) {
+                tvCardTips.text = "-"
+                tvCashTips.text = "-"
+                tvCashPaidIn.text = "-"
+                tvDayTotal.text = "-"
+                tvDayTotal.visibility = View.VISIBLE
+            } else {
+                tvCardTips.text = String.format("R%.0f", record.cardTips)
+                tvCashTips.text = String.format("R%.0f", record.cashTips)
+                tvCashPaidIn.text = String.format("R%.0f", record.cashPaidIn)
+                tvDayTotal.text = String.format("R%.0f", record.dayTotal)
+            }
+
+            if (record.notes.isNotBlank()) {
+                tvNotes.visibility = View.VISIBLE
+                tvNotes.text = record.notes
+            } else {
+                tvNotes.visibility = View.GONE
+            }
+
+            root.setOnClickListener { onEditClick(record) }
         }
     }
 
-    override fun getItemCount() = records.size
-
-    fun updateRecords(newRecords: List<DailyRecord>) {
-        records = newRecords
-        notifyDataSetChanged()
+    companion object {
+        private val DIFF = object : DiffUtil.ItemCallback<DailyRecord>() {
+            override fun areItemsTheSame(a: DailyRecord, b: DailyRecord) = a.id == b.id
+            override fun areContentsTheSame(a: DailyRecord, b: DailyRecord) = a == b
+        }
     }
 }

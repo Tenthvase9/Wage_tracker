@@ -4,484 +4,453 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?android:attr/windowBackground">
+    android:fitsSystemWindows="true"
+    android:background="?android:attr/colorBackground">
 
-    <!-- Header -->
-    <LinearLayout
+    <!-- Toolbar with Wage Tracker title + settings -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2196F3"
-        android:paddingTop="32dp"
-        android:paddingHorizontal="16dp"
-        android:paddingBottom="16dp"
-        android:orientation="vertical">
+        android:background="?attr/colorPrimary"
+        app:liftOnScroll="false">
 
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:title="@string/title_main"
+            style="@style/Widget.WageTracker.Toolbar" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+    <!-- Month selector card below toolbar -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeColor="?attr/colorOutline"
+        app:strokeWidth="1dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wage Tracker"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tip Management"
-                    android:textColor="#BBDEFB"
-                    android:textSize="11sp"/>
-            </LinearLayout>
-
-            <!-- Settings Icon -->
-            <ImageButton
-                android:id="@+id/btnSettings"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@android:drawable/ic_menu_preferences"
-                android:background="@android:color/transparent"
-                android:scaleType="centerInside"
-                android:contentDescription="Settings"/>
-        </LinearLayout>
-
-        <!-- Month Selector -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:gravity="center_vertical"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="4dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPrevMonth"
-                android:layout_width="48dp"
-                android:layout_height="40dp"
-                android:text="◀"
-                android:background="@android:color/transparent"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:padding="0dp"/>
+                style="@style/Widget.WageTracker.MonthNavInline"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                app:icon="@drawable/ic_chevron_left"
+                android:contentDescription="@string/cd_prev_month" />
 
             <TextView
                 android:id="@+id/tvCurrentMonth"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="April 2026"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="17sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                tools:ignore="HardcodedText"
+                xmlns:tools="http://schemas.android.com/tools" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNextMonth"
-                android:layout_width="48dp"
-                android:layout_height="40dp"
-                android:text="▶"
-                android:background="@android:color/transparent"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:padding="0dp"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Add Button Row -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="12dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAddRecord"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="+ ADD NEW DAY"
-                android:layout_marginEnd="6dp"
-                app:cornerRadius="8dp"
-                android:textSize="12sp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnMarkPaid"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="MARK PAID"
-                android:layout_marginStart="6dp"
-                app:cornerRadius="8dp"
-                android:textSize="12sp"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#4CAF50"/>
-        </LinearLayout>
-
-        <!-- Export Buttons Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnShare"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="📤 SHARE"
-                android:layout_marginEnd="6dp"
-                app:cornerRadius="8dp"
-                android:textSize="11sp"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnExportCSV"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="📁 EXPORT CSV"
-                android:layout_marginStart="6dp"
-                app:cornerRadius="8dp"
-                android:textSize="11sp"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Summary Card -->
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="2dp"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginBottom="12dp"
-        app:cardBackgroundColor="?android:attr/colorBackground">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="MONTHLY SUMMARY"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#666666"/>
-
-            <!-- Total Card Tips -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Total Card Tips:"
-                    android:textSize="13sp"
-                    android:textColor="#444444"/>
-
-                <TextView
-                    android:id="@+id/totalCardTips"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R0"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="#2196F3"/>
-            </LinearLayout>
-
-            <!-- Total Cash Tips -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Total Cash Tips:"
-                    android:textSize="13sp"
-                    android:textColor="#444444"/>
-
-                <TextView
-                    android:id="@+id/totalCashTips"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R0"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="#4CAF50"/>
-            </LinearLayout>
-
-            <!-- Total Card + Cash Tips -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Total Card + Cash Tips:"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="#333333"/>
-
-                <TextView
-                    android:id="@+id/totalCardCashTips"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R0"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="#FF9800"/>
-            </LinearLayout>
-
-            <!-- Total Cash Paid In -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Total Cash Paid In:"
-                    android:textSize="13sp"
-                    android:textColor="#444444"/>
-
-                <TextView
-                    android:id="@+id/totalCashPaidIn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R0"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="#444444"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E0E0E0"
-                android:layout_marginVertical="8dp"/>
-
-            <!-- Owed Amount -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:layout_marginTop="4dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="YOU ARE OWED:"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#333333"/>
-
-                <TextView
-                    android:id="@+id/totalOwed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#2196F3"/>
-            </LinearLayout>
+                style="@style/Widget.WageTracker.MonthNavInline"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                app:icon="@drawable/ic_chevron_right"
+                android:contentDescription="@string/cd_next_month" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Table Headers -->
+    <!-- Hero "YOU ARE OWED" card (compact) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/heroCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="3dp"
+        app:cardBackgroundColor="?attr/colorPrimary"
+        app:contentPadding="14dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvHeroLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hero_label"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.08"
+                        android:textColor="#E3F2FD"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvHeroAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="R0.00"
+                        android:textColor="#FFFFFF"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:fontFeatureSettings="tnum" />
+                </LinearLayout>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipHeroStatus"
+                    style="@style/Widget.Material3.Chip.Assist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_mark_paid"
+                    app:chipIcon="@drawable/ic_check"
+                    app:chipBackgroundColor="#FFFFFF"
+                    android:textColor="?attr/colorPrimary"
+                    app:chipIconTint="?attr/colorPrimary" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvHeroMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#E3F2FD"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Four mini cards: card tips, cash tips, total tips, cash paid in -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="8dp"
-        android:background="#EEEEEE">
+        android:paddingHorizontal="16dp"
+        android:paddingTop="12dp">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:text="Date"
-            android:textStyle="bold"
-            android:textSize="11sp"/>
-
-        <TextView
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.WageTracker.MiniCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Card"
-            android:textStyle="bold"
-            android:textSize="11sp"
-            android:gravity="end"/>
+            android:layout_marginEnd="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/card_tips"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/tvTotalCardTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R0"
+                    android:textColor="@color/wage_card"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:fontFeatureSettings="tnum" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.WageTracker.MiniCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cash"
-            android:textStyle="bold"
-            android:textSize="11sp"
-            android:gravity="end"/>
+            android:layout_marginHorizontal="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cash_tips"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/tvTotalCashTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R0"
+                    android:textColor="@color/wage_cash"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:fontFeatureSettings="tnum" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.WageTracker.MiniCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Paid In"
-            android:textStyle="bold"
-            android:textSize="11sp"
-            android:gravity="end"/>
+            android:layout_marginHorizontal="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_tips"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/tvTotalAllTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R0"
+                    android:textColor="@color/wage_cash"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:fontFeatureSettings="tnum" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:layout_width="32dp"
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.WageTracker.MiniCard"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textStyle="bold"/>
+            android:layout_weight="1"
+            android:layout_marginStart="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cash_paid_in"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/tvTotalPaidIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R0"
+                    android:textColor="@color/wage_paid_in"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:fontFeatureSettings="tnum" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-    <!-- List -->
+    <!-- Short-paid chip shows only when current month is paid and there is a shortage -->
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipShortBy"
+        style="@style/Widget.Material3.Chip.Assist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:text="@string/dialog_paid_short"
+        app:chipBackgroundColor="@color/wage_short"
+        android:textColor="#FFFFFF"
+        app:chipIconTint="#FFFFFF" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddRecord"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/action_add"
+        app:icon="@drawable/ic_add"
+        app:iconSize="22dp"
+        app:cornerRadius="14dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnShare"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="@string/action_share"
+            app:icon="@drawable/ic_share"
+            android:layout_marginEnd="6dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnExportCSV"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="@string/action_export_month"
+            app:icon="@drawable/ic_download"
+            android:layout_marginStart="6dp" />
+    </LinearLayout>
+
+    <!-- List header - weights match item_record.xml exactly -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="6dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.4"
+            android:text="Date"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:gravity="end"
+            android:text="Card"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:gravity="end"
+            android:text="Cash"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:gravity="end"
+            android:text="Paid in"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.4"
+            android:gravity="end"
+            android:text="Total"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvEmptyState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="48dp"
+        android:paddingHorizontal="32dp"
+        android:text="No entries yet. Tap Add new day to get started."
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="0dp" />
 
-    <!-- Mini Chart Footer -->
+    <!-- Dashboard chin bar -->
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/dashboardChin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="2dp"
-        android:layout_margin="12dp">
+        android:layout_height="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeWidth="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quick Overview"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:id="@+id/chartContainer"
-                android:gravity="bottom">
-
-                <!-- Bars -->
-                <View
-                    android:id="@+id/bar1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#64B5F6"
-                    android:layout_margin="2dp"
-                    android:visibility="gone"/>
-
-                <View
-                    android:id="@+id/bar2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#64B5F6"
-                    android:layout_margin="2dp"
-                    android:visibility="gone"/>
-
-                <View
-                    android:id="@+id/bar3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#64B5F6"
-                    android:layout_margin="2dp"
-                    android:visibility="gone"/>
-
-                <View
-                    android:id="@+id/bar4"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#64B5F6"
-                    android:layout_margin="2dp"
-                    android:visibility="gone"/>
-
-                <View
-                    android:id="@+id/bar5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#64B5F6"
-                    android:layout_margin="2dp"
-                    android:visibility="gone"/>
-
-                <View
-                    android:id="@+id/bar6"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#64B5F6"
-                    android:layout_margin="2dp"
-                    android:visibility="gone"/>
-
-                <View
-                    android:id="@+id/bar7"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#64B5F6"
-                    android:layout_margin="2dp"
-                    android:visibility="gone"/>
-            </LinearLayout>
+                android:text="View Dashboard"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/chartLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last 7 days (Card + Cash Tips)"
-                android:textSize="10sp"
-                android:textColor="#888888"
-                android:layout_marginTop="8dp"
-                android:gravity="center_horizontal"/>
+                android:text="   〉"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="16sp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
 </LinearLayout>

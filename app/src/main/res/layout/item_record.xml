@@ -2,71 +2,83 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingHorizontal="12dp"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
     android:paddingVertical="12dp"
-    android:background="?attr/selectableItemBackground">
+    android:background="?attr/colorSurface">
 
-    <!-- Date -->
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:textSize="12sp"/>
-
-    <!-- Card Tips -->
-    <TextView
-        android:id="@+id/tvCardTips"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="12sp"
-        android:gravity="end"
-        android:textColor="#2196F3"/>
-
-    <!-- Cash Tips -->
-    <TextView
-        android:id="@+id/tvCashTips"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="12sp"
-        android:gravity="end"
-        android:textColor="#4CAF50"/>
-
-    <!-- Cash Paid In -->
-    <TextView
-        android:id="@+id/tvCashPaidIn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="12sp"
-        android:gravity="end"/>
-
-    <!-- Action Buttons Container -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-        <!-- Edit Button -->
-        <ImageView
-            android:id="@+id/btnEdit"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_edit"
-            android:padding="6dp"
-            android:contentDescription="Edit"/>
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.4"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-        <!-- Delete Button -->
-        <ImageView
-            android:id="@+id/btnDelete"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_delete"
-            android:padding="6dp"
-            android:contentDescription="Delete"/>
+        <TextView
+            android:id="@+id/tvCardTips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:gravity="end"
+            android:textColor="@color/wage_card"
+            android:textSize="14sp"
+            android:fontFeatureSettings="tnum" />
+
+        <TextView
+            android:id="@+id/tvCashTips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:gravity="end"
+            android:textColor="@color/wage_cash"
+            android:textSize="14sp"
+            android:fontFeatureSettings="tnum" />
+
+        <TextView
+            android:id="@+id/tvCashPaidIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:gravity="end"
+            android:textColor="@color/wage_paid_in"
+            android:textSize="14sp"
+            android:fontFeatureSettings="tnum" />
+
+        <TextView
+            android:id="@+id/tvDayTotal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.4"
+            android:gravity="end"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:fontFeatureSettings="tnum" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tvNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <!-- Bottom separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="12dp"
+        android:background="?attr/colorOutline" />
 </LinearLayout>

@@ -1,10 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Wage Tracker</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="lorem_ipsum">Lorem Ipsum</string>
+    <string name="title_main">Wage Tracker</string>
+    <string name="subtitle_main">Tip management</string>
+
     <string name="action_settings">Settings</string>
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="action_year_view">Year view</string>
+    <string name="action_export_all">Export all months</string>
+    <string name="action_export_month">Export this month</string>
+    <string name="action_share">Share</string>
+    <string name="action_add">Add new day</string>
+    <string name="action_mark_paid">Mark paid</string>
+    <string name="action_unmark_paid">Paid · tap to reverse</string>
+
+    <string name="hero_label">You are owed</string>
+    <string name="summary_label">This month</string>
+    <string name="worked_days">%d days</string>
+    <string name="card_tips">Card</string>
+    <string name="cash_tips">Cash</string>
+    <string name="cash_paid_in">Paid in</string>
+    <string name="total_tips">Card + Cash</string>
+    <string name="total_owed">You are owed</string>
+
+    <string name="dialog_add_title">Add daily entry</string>
+    <string name="dialog_edit_title">Edit entry</string>
+    <string name="dialog_paid_title">Mark month as paid</string>
+    <string name="dialog_paid_amount">Amount paid</string>
+    <string name="dialog_paid_amount_hint">How much did you actually receive?</string>
+    <string name="dialog_paid_short">Short by</string>
+
+    <string name="hint_date">Date</string>
+    <string name="hint_card_tips">Card tips (R)</string>
+    <string name="hint_cash_tips">Cash tips (R)</string>
+    <string name="hint_cash_paid_in">Cash paid in (R)</string>
+    <string name="hint_notes">Notes (optional)</string>
+    <string name="hint_day_off">Day off</string>
+
+    <string name="cd_settings">Settings</string>
+    <string name="cd_edit">Edit entry</string>
+    <string name="cd_delete">Delete entry</string>
+    <string name="cd_prev_month">Previous month</string>
+    <string name="cd_next_month">Next month</string>
+    <string name="cd_pick_date">Pick date</string>
+
+    <string name="undo_delete">Deleted %1$s · Undo</string>
+    <string name="msg_paid">%1$s marked as paid</string>
+    <string name="msg_unpaid">%1$s marked as unpaid</string>
+    <string name="msg_added">Added %1$s</string>
+    <string name="msg_updated">Updated %1$s</string>
+    <string name="msg_no_amount_owed">No amount owed for %1$s</string>
+    <string name="msg_pick_date">Please pick a date</string>
+    <string name="msg_export_done">Saved to %1$s</string>
+    <string name="msg_export_failed">Export failed: %1$s</string>
+    <string name="msg_no_data">No data for %1$s</string>
+
+    <string name="year_view_title">Year view</string>
+    <string name="year_total">%1$s · %2$d worked · Owed %3$s</string>
+
+    <string name="widget_title">Wage Tracker</string>
+    <string name="widget_empty">No entries yet</string>
+    <string name="widget_owed">Owed %1$s</string>
+
+    <string name="reminder_title">Daily reminder</string>
+    <string name="reminder_summary">Remind me to log my tips</string>
+    <string name="reminder_time">Reminder time</string>
+    <string name="reminder_notif_title">Wage Tracker</string>
+    <string name="reminder_notif_text">Time to log your tips!</string>
+    <string name="reminder_channel_name">Tip reminder</string>
+
+    <string name="auto_backup_title">Auto backup</string>
+    <string name="auto_backup_summary">Daily backup to device storage</string>
+    <string name="backup_now">Backup now</string>
+    <string name="backup_now_summary">Create a backup file immediately</string>
+    <string name="backup_saved">Backup saved to device</string>
+    <string name="backup_failed">Backup failed</string>
 </resources>
