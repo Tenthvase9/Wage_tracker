@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Appearance">
+        <SwitchPreferenceCompat
+            app:key="dark_mode"
+            app:title="Dark mode"
+            app:summary="Use a dark colour scheme" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Reminders">
+        <SwitchPreferenceCompat
+            app:key="reminder_enabled"
+            app:title="@string/reminder_title"
+            app:summary="@string/reminder_summary"
+            app:defaultValue="false" />
+        <Preference
+            app:key="reminder_time"
+            app:title="@string/reminder_time"
+            app:summary="8:00 PM" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Backup">
+        <SwitchPreferenceCompat
+            app:key="auto_backup_enabled"
+            app:title="@string/auto_backup_title"
+            app:summary="@string/auto_backup_summary"
+            app:defaultValue="false" />
+        <Preference
+            app:key="backup_now"
+            app:title="@string/backup_now"
+            app:summary="@string/backup_now_summary" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Data">
+        <Preference
+            app:key="backup"
+            app:title="Backup data"
+            app:summary="Save all records to a file" />
+        <Preference
+            app:key="restore"
+            app:title="Restore data"
+            app:summary="Load records from a backup file" />
+        <Preference
+            app:key="reset_data"
+            app:title="Reset all data"
+            app:summary="Delete all records and paid-month history"
+            android:icon="@drawable/ic_delete" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="About">
+        <Preference
+            app:key="version"
+            app:title="Wage Tracker"
+            app:summary="Track your tips, cash paid in, and what you are owed." />
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>

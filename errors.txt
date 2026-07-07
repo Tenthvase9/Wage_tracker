@@ -1,0 +1,1728 @@
+warning: argfile not found: C:\Users\Matt\AndroidStudioProjects\WageTracker\classpath.txt
+warning: classpath entry points to a non-existent location: -d
+error: source file or directory not found: out.jar
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:3:8: error: unresolved reference 'android'.
+import android.content.Context
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:4:8: error: unresolved reference 'android'.
+import android.net.Uri
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:15:29: error: unresolved reference 'Context'.
+    fun writeMonth(context: Context, uri: Uri, monthKey: String, monthName: String, records: List<DailyRecord>) {
+                            ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:15:43: error: unresolved reference 'Uri'.
+    fun writeMonth(context: Context, uri: Uri, monthKey: String, monthName: String, records: List<DailyRecord>) {
+                                          ^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:16:36: error: unresolved reference 'filter'.
+        val monthRecords = records.filter { it.monthKey == monthKey }.sortedBy { it.isoDate }
+                                   ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:16:45: error: unresolved reference 'it'.
+        val monthRecords = records.filter { it.monthKey == monthKey }.sortedBy { it.isoDate }
+                                            ^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:16:82: error: unresolved reference 'it'.
+        val monthRecords = records.filter { it.monthKey == monthKey }.sortedBy { it.isoDate }
+                                                                                 ^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:20:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("Wage Tracker - $monthName")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:21:12: error: unresolved reference 'appendLine'.
+        sb.appendLine()
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:22:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("Date,Card Tips,Cash Tips,Cash Paid In,Total,Notes")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:23:19: error: for-loop range must have an 'iterator()' method.
+        for (r in monthRecords) {
+                  ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:25:20: error: unresolved reference 'appendLine'.
+                sb.appendLine("${csv(r.date)},OFF,OFF,OFF,OFF,")
+                   ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:29:16: error: unresolved reference 'appendLine'.
+            sb.appendLine(
+               ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:31:27: error: unresolved reference 'format'.
+                "${"%.2f".format(r.cardTips)}," +
+                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:32:27: error: unresolved reference 'format'.
+                "${"%.2f".format(r.cashTips)}," +
+                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:33:27: error: unresolved reference 'format'.
+                "${"%.2f".format(r.cashPaidIn)}," +
+                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:34:27: error: unresolved reference 'format'.
+                "${"%.2f".format(total)}," +
+                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:38:12: error: unresolved reference 'appendLine'.
+        sb.appendLine()
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:39:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("Totals,${"%.2f".format(totals.cardTips)},${"%.2f".format(totals.cashTips)},${"%.2f".format(totals.cashPaidIn)},,")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:39:40: error: unresolved reference 'format'.
+        sb.appendLine("Totals,${"%.2f".format(totals.cardTips)},${"%.2f".format(totals.cashTips)},${"%.2f".format(totals.cashPaidIn)},,")
+                                       ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:39:74: error: unresolved reference 'format'.
+        sb.appendLine("Totals,${"%.2f".format(totals.cardTips)},${"%.2f".format(totals.cashTips)},${"%.2f".format(totals.cashPaidIn)},,")
+                                                                         ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:39:108: error: unresolved reference 'format'.
+        sb.appendLine("Totals,${"%.2f".format(totals.cardTips)},${"%.2f".format(totals.cashTips)},${"%.2f".format(totals.cashPaidIn)},,")
+                                                                                                           ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:40:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("You are owed,${"%.2f".format(totals.owed)},,,")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:40:46: error: unresolved reference 'format'.
+        sb.appendLine("You are owed,${"%.2f".format(totals.owed)},,,")
+                                             ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:44:33: error: unresolved reference 'Context'.
+    fun writeAllMonths(context: Context, uri: Uri, records: List<DailyRecord>, paidMonths: List<PaidMonthRecord>) {
+                                ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:44:47: error: unresolved reference 'Uri'.
+    fun writeAllMonths(context: Context, uri: Uri, records: List<DailyRecord>, paidMonths: List<PaidMonthRecord>) {
+                                              ^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:45:31: error: unresolved reference 'groupBy'.
+        val grouped = records.groupBy { it.monthKey }.toSortedMap()
+                              ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:45:41: error: unresolved reference 'it'.
+        val grouped = records.groupBy { it.monthKey }.toSortedMap()
+                                        ^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:47:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("Wage Tracker - All months")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:48:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("Exported,${SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())}")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:49:12: error: unresolved reference 'appendLine'.
+        sb.appendLine()
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:50:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("Month,Status,Worked Days,Card Tips,Cash Tips,Cash Paid In,Owed,Paid,Short By,Paid Date")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:51:34: error: destructuring of type 'ERROR CLASS: Unresolved name: next' requires operator function 'component1()'.
+        for ((monthKey, recs) in grouped) {
+                                 ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:51:34: error: destructuring of type 'ERROR CLASS: Unresolved name: next' requires operator function 'component2()'.
+        for ((monthKey, recs) in grouped) {
+                                 ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:51:34: error: for-loop range must have an 'iterator()' method.
+        for ((monthKey, recs) in grouped) {
+                                 ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:54:35: error: unresolved reference 'firstOrNull'.
+            val paid = paidMonths.firstOrNull { it.monthKey == monthKey }
+                                  ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:54:49: error: unresolved reference 'it'.
+            val paid = paidMonths.firstOrNull { it.monthKey == monthKey }
+                                                ^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:61:16: error: unresolved reference 'appendLine'.
+            sb.appendLine(
+               ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:63:27: error: unresolved reference 'format'.
+                "${"%.2f".format(totals.cardTips)}," +
+                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:64:27: error: unresolved reference 'format'.
+                "${"%.2f".format(totals.cashTips)}," +
+                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:65:27: error: unresolved reference 'format'.
+                "${"%.2f".format(totals.cashPaidIn)}," +
+                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:66:27: error: unresolved reference 'format'.
+                "${"%.2f".format(owed)}," +
+                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:67:27: error: unresolved reference 'format'.
+                "${"%.2f".format(paidAmount)}," +
+                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:68:27: error: unresolved reference 'format'.
+                "${"%.2f".format(short)}," +
+                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:72:23: error: for-loop range must have an 'iterator()' method.
+            for (r in recs.sortedBy { it.isoDate }) {
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:72:39: error: unresolved reference 'it'.
+            for (r in recs.sortedBy { it.isoDate }) {
+                                      ^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:74:24: error: unresolved reference 'appendLine'.
+                    sb.appendLine("  ${r.date},OFF,,,,,,")
+                       ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:77:20: error: unresolved reference 'appendLine'.
+                sb.appendLine(
+                   ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:79:31: error: unresolved reference 'format'.
+                    "${"%.2f".format(r.cardTips)}," +
+                              ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:80:31: error: unresolved reference 'format'.
+                    "${"%.2f".format(r.cashTips)}," +
+                              ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:81:31: error: unresolved reference 'format'.
+                    "${"%.2f".format(r.cashPaidIn)}," +
+                              ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:82:31: error: unresolved reference 'format'.
+                    "${"%.2f".format(r.dayTotal)}," +
+                              ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:90:35: error: unresolved reference 'Context'.
+    private fun writeUri(context: Context, uri: Uri, text: String) {
+                                  ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:90:49: error: unresolved reference 'Uri'.
+    private fun writeUri(context: Context, uri: Uri, text: String) {
+                                                ^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:91:32: error: unresolved reference 'contentResolver'.
+        val resolver = context.contentResolver
+                               ^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:92:53: error: cannot infer type for value parameter 'out'. Specify it explicitly.
+        resolver.openOutputStream(uri, "wt")?.use { out ->
+                                                    ^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:93:37: error: unresolved reference 'use'.
+            OutputStreamWriter(out).use { writer -> writer.write(text) }
+                                    ^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:93:43: error: cannot infer type for value parameter 'writer'. Specify it explicitly.
+            OutputStreamWriter(out).use { writer -> writer.write(text) }
+                                          ^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:93:60: error: unresolved reference 'write'.
+            OutputStreamWriter(out).use { writer -> writer.write(text) }
+                                                           ^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:98:15: error: unresolved reference 'isEmpty'.
+        if (s.isEmpty()) return ""
+              ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:99:28: error: unresolved reference 'contains'.
+        val needsQuote = s.contains(',') || s.contains('"') || s.contains('\n')
+                           ^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:99:47: error: unresolved reference 'contains'.
+        val needsQuote = s.contains(',') || s.contains('"') || s.contains('\n')
+                                              ^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:99:66: error: unresolved reference 'contains'.
+        val needsQuote = s.contains(',') || s.contains('"') || s.contains('\n')
+                                                                 ^^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:100:25: error: unresolved reference 'replace'.
+        val escaped = s.replace("\"", "\"\"")
+                        ^^^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:105:30: error: unresolved reference 'split'.
+        val parts = monthKey.split("-")
+                             ^^^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:111:22: error: no 'get' operator method providing array access.
+        val m = parts[1].toIntOrNull() ?: return monthKey
+                     ^^^
+app\src\main\java\com\example\wagetracker\CsvExporter.kt:112:22: error: no 'get' operator method providing array access.
+        val y = parts[0].toIntOrNull() ?: return monthKey
+                     ^^^
+app\src\main\java\com\example\wagetracker\DailyRecord.kt:14:25: error: unresolved reference 'take'.
+        get() = isoDate.take(7)   // "yyyy-MM-dd" -> "yyyy-MM"
+                        ^^^^
+app\src\main\java\com\example\wagetracker\DateUtils.kt:22:42: error: unresolved reference 'apply'.
+        val cal = Calendar.getInstance().apply {
+                                         ^^^^^
+app\src\main\java\com\example\wagetracker\DateUtils.kt:23:13: error: unresolved reference 'set'.
+            set(year, monthZeroBased, day, 0, 0, 0)
+            ^^^
+app\src\main\java\com\example\wagetracker\DateUtils.kt:24:13: error: unresolved reference 'set'.
+            set(Calendar.MILLISECOND, 0)
+            ^^^
+app\src\main\java\com\example\wagetracker\DateUtils.kt:43:16: error: unresolved reference 'format'.
+        String.format(Locale.ENGLISH, "%04d-%02d", year, monthZeroBased + 1)
+               ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:3:8: error: unresolved reference 'android'.
+import android.app.DatePickerDialog
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:4:8: error: unresolved reference 'android'.
+import android.content.Intent
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:5:8: error: unresolved reference 'android'.
+import android.net.Uri
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:6:8: error: unresolved reference 'android'.
+import android.os.Bundle
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:7:8: error: unresolved reference 'android'.
+import android.text.format.DateFormat
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:8:8: error: unresolved reference 'android'.
+import android.view.View
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:9:8: error: unresolved reference 'android'.
+import android.widget.EditText
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:10:8: error: unresolved reference 'android'.
+import android.widget.Toast
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:11:8: error: unresolved reference 'androidx'.
+import androidx.activity.result.contract.ActivityResultContracts
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:12:8: error: unresolved reference 'androidx'.
+import androidx.appcompat.app.AlertDialog
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:13:8: error: unresolved reference 'androidx'.
+import androidx.appcompat.app.AppCompatActivity
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:14:8: error: unresolved reference 'androidx'.
+import androidx.appcompat.app.AppCompatDelegate
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:15:8: error: unresolved reference 'androidx'.
+import androidx.recyclerview.widget.LinearLayoutManager
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:16:32: error: unresolved reference 'databinding'.
+import com.example.wagetracker.databinding.ActivityMainBinding
+                               ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:17:12: error: unresolved reference 'google'.
+import com.google.android.material.snackbar.Snackbar
+           ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:21:22: error: unresolved reference 'AppCompatActivity'.
+class MainActivity : AppCompatActivity() {
+                     ^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:29:35: error: unresolved reference 'ActivityMainBinding'.
+    private lateinit var binding: ActivityMainBinding
+                                  ^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:34:58: error: unresolved reference 'mutableListOf'.
+    private val monthRecords: MutableList<DailyRecord> = mutableListOf()
+                                                         ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:36:34: error: unresolved reference 'registerForActivityResult'.
+    private val createMonthCsv = registerForActivityResult(
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:37:9: error: unresolved reference 'ActivityResultContracts'.
+        ActivityResultContracts.CreateDocument("text/csv")
+        ^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:38:14: error: unresolved reference 'Uri'.
+    ) { uri: Uri? ->
+             ^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:44:19: error: unresolved reference 'getString'.
+            toast(getString(R.string.msg_export_done, uri.toString()))
+                  ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:44:29: error: unresolved reference 'R'.
+            toast(getString(R.string.msg_export_done, uri.toString()))
+                            ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:46:19: error: unresolved reference 'getString'.
+            toast(getString(R.string.msg_export_failed, e.message ?: ""))
+                  ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:46:29: error: unresolved reference 'R'.
+            toast(getString(R.string.msg_export_failed, e.message ?: ""))
+                            ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:50:32: error: unresolved reference 'registerForActivityResult'.
+    private val createAllCsv = registerForActivityResult(
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:51:9: error: unresolved reference 'ActivityResultContracts'.
+        ActivityResultContracts.CreateDocument("text/csv")
+        ^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:52:14: error: unresolved reference 'Uri'.
+    ) { uri: Uri? ->
+             ^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:56:19: error: unresolved reference 'getString'.
+            toast(getString(R.string.msg_export_done, uri.toString()))
+                  ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:56:29: error: unresolved reference 'R'.
+            toast(getString(R.string.msg_export_done, uri.toString()))
+                            ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:58:19: error: unresolved reference 'getString'.
+            toast(getString(R.string.msg_export_failed, e.message ?: ""))
+                  ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:58:29: error: unresolved reference 'R'.
+            toast(getString(R.string.msg_export_failed, e.message ?: ""))
+                            ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:62:5: error: 'onCreate' overrides nothing.
+    override fun onCreate(savedInstanceState: Bundle?) {
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:62:47: error: unresolved reference 'Bundle'.
+    override fun onCreate(savedInstanceState: Bundle?) {
+                                              ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:65:9: error: unresolved reference 'AppCompatDelegate'.
+        AppCompatDelegate.setDefaultNightMode(
+        ^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:66:25: error: unresolved reference 'AppCompatDelegate'.
+            if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+                        ^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:66:63: error: unresolved reference 'AppCompatDelegate'.
+            if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+                                                              ^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:69:9: error: unresolved reference 'AppCompatActivity'.
+        super.onCreate(savedInstanceState)
+        ^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:69:15: error: unresolved reference 'onCreate'.
+        super.onCreate(savedInstanceState)
+              ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:70:19: error: unresolved reference 'ActivityMainBinding'.
+        binding = ActivityMainBinding.inflate(layoutInflater)
+                  ^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:70:47: error: unresolved reference 'layoutInflater'.
+        binding = ActivityMainBinding.inflate(layoutInflater)
+                                              ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:71:9: error: unresolved reference 'setContentView'.
+        setContentView(binding.root)
+        ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:71:32: error: unresolved reference 'root'.
+        setContentView(binding.root)
+                               ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:74:9: error: unresolved reference 'setSupportActionBar'.
+        setSupportActionBar(binding.toolbar)
+        ^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:74:37: error: unresolved reference 'toolbar'.
+        setSupportActionBar(binding.toolbar)
+                                    ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:75:9: error: unresolved reference 'supportActionBar'.
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:76:17: error: unresolved reference 'toolbar'.
+        binding.toolbar.setOnMenuItemClickListener { item ->
+                ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:76:54: error: cannot infer type for value parameter 'item'. Specify it explicitly.
+        binding.toolbar.setOnMenuItemClickListener { item ->
+                                                     ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:77:24: error: unresolved reference 'itemId'.
+            when (item.itemId) {
+                       ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:78:17: error: unresolved reference 'R'.
+                R.id.action_settings -> { startActivity(Intent(this, SettingsActivity::class.java)); true }
+                ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:78:43: error: unresolved reference 'startActivity'.
+                R.id.action_settings -> { startActivity(Intent(this, SettingsActivity::class.java)); true }
+                                          ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:78:57: error: unresolved reference 'Intent'.
+                R.id.action_settings -> { startActivity(Intent(this, SettingsActivity::class.java)); true }
+                                                        ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:78:94: error: unresolved reference 'java'.
+                R.id.action_settings -> { startActivity(Intent(this, SettingsActivity::class.java)); true }
+                                                                                             ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:79:17: error: unresolved reference 'R'.
+                R.id.action_year_view -> { startActivity(Intent(this, YearViewActivity::class.java)); true }
+                ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:79:44: error: unresolved reference 'startActivity'.
+                R.id.action_year_view -> { startActivity(Intent(this, YearViewActivity::class.java)); true }
+                                           ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:79:58: error: unresolved reference 'Intent'.
+                R.id.action_year_view -> { startActivity(Intent(this, YearViewActivity::class.java)); true }
+                                                         ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:79:95: error: unresolved reference 'java'.
+                R.id.action_year_view -> { startActivity(Intent(this, YearViewActivity::class.java)); true }
+                                                                                              ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:84:9: error: unresolved reference 'intent'.
+        intent.getStringExtra(EXTRA_FOCUS_MONTH)?.let { focusOn(it) }
+        ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:84:65: error: unresolved reference 'it'.
+        intent.getStringExtra(EXTRA_FOCUS_MONTH)?.let { focusOn(it) }
+                                                                ^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:90:17: error: unresolved reference 'recyclerView'.
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:90:46: error: unresolved reference 'LinearLayoutManager'.
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                                             ^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:91:17: error: unresolved reference 'recyclerView'.
+        binding.recyclerView.adapter = adapter
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:93:17: error: unresolved reference 'btnAddRecord'.
+        binding.btnAddRecord.setOnClickListener { showAddDialog() }
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:94:17: error: unresolved reference 'btnMarkPaid'.
+        binding.btnMarkPaid.setOnClickListener { showMarkPaidDialog() }
+                ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:95:17: error: unresolved reference 'btnPrevMonth'.
+        binding.btnPrevMonth.setOnClickListener {
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:99:17: error: unresolved reference 'btnNextMonth'.
+        binding.btnNextMonth.setOnClickListener {
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:103:17: error: unresolved reference 'btnShare'.
+        binding.btnShare.setOnClickListener { shareMonth() }
+                ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:104:17: error: unresolved reference 'btnExportCSV'.
+        binding.btnExportCSV.setOnClickListener {
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:105:25: error: unresolved reference 'DateFormat'.
+            val stamp = DateFormat.format("yyyyMM", currentMonth).toString()
+                        ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:108:17: error: unresolved reference 'btnExportAll'.
+        binding.btnExportAll.setOnClickListener {
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:111:17: error: unresolved reference 'chipHeroStatus'.
+        binding.chipHeroStatus.setOnClickListener { showMarkPaidDialog() }
+                ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:116:5: error: 'onResume' overrides nothing.
+    override fun onResume() {
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:117:9: error: unresolved reference 'AppCompatActivity'.
+        super.onResume()
+        ^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:117:15: error: unresolved reference 'onResume'.
+        super.onResume()
+              ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:123:30: error: unresolved reference 'split'.
+        val parts = monthKey.split("-")
+                             ^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:125:35: error: no 'get' operator method providing array access.
+            currentMonth.set(parts[0].toInt(), parts[1].toInt() - 1, 1)
+                                  ^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:125:53: error: no 'get' operator method providing array access.
+            currentMonth.set(parts[0].toInt(), parts[1].toInt() - 1, 1)
+                                                    ^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:130:17: error: unresolved reference 'tvCurrentMonth'.
+        binding.tvCurrentMonth.text = MonthSummaryCalculator.monthName(currentMonth)
+                ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:138:17: error: unresolved reference 'tvHeroAmount'.
+        binding.tvHeroAmount.text = "R${"%,.2f".format(java.util.Locale.ENGLISH, owed)}"
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:138:49: error: unresolved reference 'format'.
+        binding.tvHeroAmount.text = "R${"%,.2f".format(java.util.Locale.ENGLISH, owed)}"
+                                                ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:139:17: error: unresolved reference 'tvHeroMonth'.
+        binding.tvHeroMonth.text = getString(R.string.worked_days, worked)
+                ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:139:36: error: unresolved reference 'getString'.
+        binding.tvHeroMonth.text = getString(R.string.worked_days, worked)
+                                   ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:139:46: error: unresolved reference 'R'.
+        binding.tvHeroMonth.text = getString(R.string.worked_days, worked)
+                                             ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:140:17: error: unresolved reference 'chipHeroStatus'.
+        binding.chipHeroStatus.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+                ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:140:51: error: unresolved reference 'getString'.
+        binding.chipHeroStatus.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+                                                  ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:140:61: error: unresolved reference 'R'.
+        binding.chipHeroStatus.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+                                                            ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:140:95: error: unresolved reference 'getString'.
+        binding.chipHeroStatus.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+                                                                                              ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:140:105: error: unresolved reference 'R'.
+        binding.chipHeroStatus.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+                                                                                                        ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:141:17: error: unresolved reference 'chipHeroStatus'.
+        binding.chipHeroStatus.setChipBackgroundColorResource(
+                ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:142:25: error: unresolved reference 'R'.
+            if (isPaid) R.color.wage_paid else android.R.color.white
+                        ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:142:48: error: unresolved reference 'android'.
+            if (isPaid) R.color.wage_paid else android.R.color.white
+                                               ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:144:17: error: unresolved reference 'chipHeroStatus'.
+        binding.chipHeroStatus.setTextColor(
+                ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:145:49: error: unresolved reference 'getColor'.
+            if (isPaid) 0xFFFFFFFF.toInt() else getColor(R.color.brand_primary)
+                                                ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:145:58: error: unresolved reference 'R'.
+            if (isPaid) 0xFFFFFFFF.toInt() else getColor(R.color.brand_primary)
+                                                         ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:151:21: error: unresolved reference 'chipShortBy'.
+            binding.chipShortBy.visibility = View.VISIBLE
+                    ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:151:46: error: unresolved reference 'View'.
+            binding.chipShortBy.visibility = View.VISIBLE
+                                             ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:152:21: error: unresolved reference 'chipShortBy'.
+            binding.chipShortBy.text = getString(R.string.dialog_paid_short) + " R${"%.2f".format(paidRecord.shortBy)}"
+                    ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:152:40: error: unresolved reference 'getString'.
+            binding.chipShortBy.text = getString(R.string.dialog_paid_short) + " R${"%.2f".format(paidRecord.shortBy)}"
+                                       ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:152:50: error: unresolved reference 'R'.
+            binding.chipShortBy.text = getString(R.string.dialog_paid_short) + " R${"%.2f".format(paidRecord.shortBy)}"
+                                                 ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:152:92: error: unresolved reference 'format'.
+            binding.chipShortBy.text = getString(R.string.dialog_paid_short) + " R${"%.2f".format(paidRecord.shortBy)}"
+                                                                                           ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:154:21: error: unresolved reference 'chipShortBy'.
+            binding.chipShortBy.visibility = View.GONE
+                    ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:154:46: error: unresolved reference 'View'.
+            binding.chipShortBy.visibility = View.GONE
+                                             ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:158:17: error: unresolved reference 'btnMarkPaid'.
+        binding.btnMarkPaid.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+                ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:158:48: error: unresolved reference 'getString'.
+        binding.btnMarkPaid.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+                                               ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:158:58: error: unresolved reference 'R'.
+        binding.btnMarkPaid.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+                                                         ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:158:92: error: unresolved reference 'getString'.
+        binding.btnMarkPaid.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+                                                                                           ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:158:102: error: unresolved reference 'R'.
+        binding.btnMarkPaid.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+                                                                                                     ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:161:17: error: unresolved reference 'tvWorkedDays'.
+        binding.tvWorkedDays.text = worked.toString()
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:162:17: error: unresolved reference 'tvTotalTips'.
+        binding.tvTotalTips.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, totals.tips)}"
+                ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:162:48: error: unresolved reference 'format'.
+        binding.tvTotalTips.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, totals.tips)}"
+                                               ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:163:17: error: unresolved reference 'tvTotalPaidIn'.
+        binding.tvTotalPaidIn.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, totals.cashPaidIn)}"
+                ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:163:50: error: unresolved reference 'format'.
+        binding.tvTotalPaidIn.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, totals.cashPaidIn)}"
+                                                 ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:167:14: error: unresolved reference 'filter'.
+            .filter { it.monthKey == monthKey }
+             ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:167:23: error: unresolved reference 'it'.
+            .filter { it.monthKey == monthKey }
+                      ^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:168:25: error: unresolved reference 'it'.
+            .sortedBy { it.isoDate }
+                        ^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:171:17: error: unresolved reference 'submitList'.
+        adapter.submitList(monthRecords.toList())
+                ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:171:41: error: unresolved reference 'toList'.
+        adapter.submitList(monthRecords.toList())
+                                        ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:177:9: error: unresolved reference 'AlertDialog'.
+        AlertDialog.Builder(this)
+        ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:178:23: error: unresolved reference 'getString'.
+            .setTitle(getString(R.string.cd_delete))
+                      ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:178:33: error: unresolved reference 'R'.
+            .setTitle(getString(R.string.cd_delete))
+                                ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:180:32: error: unresolved reference 'android'.
+            .setPositiveButton(android.R.string.ok) { _, _ -> deleteWithUndo(record) }
+                               ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:180:55: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .setPositiveButton(android.R.string.ok) { _, _ -> deleteWithUndo(record) }
+                                                      ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:180:58: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .setPositiveButton(android.R.string.ok) { _, _ -> deleteWithUndo(record) }
+                                                         ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:181:32: error: unresolved reference 'android'.
+            .setNegativeButton(android.R.string.cancel, null)
+                               ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:186:34: error: unresolved reference 'indexOfFirst'.
+        val index = repo.records.indexOfFirst { it.id == record.id }.coerceAtLeast(0)
+                                 ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:186:49: error: unresolved reference 'it'.
+        val index = repo.records.indexOfFirst { it.id == record.id }.coerceAtLeast(0)
+                                                ^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:189:9: error: unresolved reference 'Snackbar'.
+        Snackbar.make(binding.root, getString(R.string.undo_delete, record.date), Snackbar.LENGTH_LONG)
+        ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:189:31: error: unresolved reference 'root'.
+        Snackbar.make(binding.root, getString(R.string.undo_delete, record.date), Snackbar.LENGTH_LONG)
+                              ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:189:37: error: unresolved reference 'getString'.
+        Snackbar.make(binding.root, getString(R.string.undo_delete, record.date), Snackbar.LENGTH_LONG)
+                                    ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:189:47: error: unresolved reference 'R'.
+        Snackbar.make(binding.root, getString(R.string.undo_delete, record.date), Snackbar.LENGTH_LONG)
+                                              ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:189:83: error: unresolved reference 'Snackbar'.
+        Snackbar.make(binding.root, getString(R.string.undo_delete, record.date), Snackbar.LENGTH_LONG)
+                                                                                  ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:197:20: error: unresolved reference 'layoutInflater'.
+        val view = layoutInflater.inflate(R.layout.dialog_add_record, null)
+                   ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:197:43: error: unresolved reference 'R'.
+        val view = layoutInflater.inflate(R.layout.dialog_add_record, null)
+                                          ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:198:40: error: unresolved reference 'EditText'.
+        val etDate = view.findViewById<EditText>(R.id.etDate)
+                                       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:198:50: error: unresolved reference 'R'.
+        val etDate = view.findViewById<EditText>(R.id.etDate)
+                                                 ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:199:44: error: unresolved reference 'EditText'.
+        val etCardTips = view.findViewById<EditText>(R.id.etCardTips)
+                                           ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:199:54: error: unresolved reference 'R'.
+        val etCardTips = view.findViewById<EditText>(R.id.etCardTips)
+                                                     ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:200:44: error: unresolved reference 'EditText'.
+        val etCashTips = view.findViewById<EditText>(R.id.etCashTips)
+                                           ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:200:54: error: unresolved reference 'R'.
+        val etCashTips = view.findViewById<EditText>(R.id.etCashTips)
+                                                     ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:201:46: error: unresolved reference 'EditText'.
+        val etCashPaidIn = view.findViewById<EditText>(R.id.etCashPaidIn)
+                                             ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:201:56: error: unresolved reference 'R'.
+        val etCashPaidIn = view.findViewById<EditText>(R.id.etCashPaidIn)
+                                                       ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:202:41: error: unresolved reference 'EditText'.
+        val etNotes = view.findViewById<EditText>(R.id.etNotes)
+                                        ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:202:51: error: unresolved reference 'R'.
+        val etNotes = view.findViewById<EditText>(R.id.etNotes)
+                                                  ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:203:46: error: unresolved reference 'google'.
+        val swDayOff = view.findViewById<com.google.android.material.materialswitch.MaterialSwitch>(R.id.swDayOff)
+                                             ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:203:101: error: unresolved reference 'R'.
+        val swDayOff = view.findViewById<com.google.android.material.materialswitch.MaterialSwitch>(R.id.swDayOff)
+                                                                                                    ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:218:9: error: unresolved reference 'AlertDialog'.
+        AlertDialog.Builder(this)
+        ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:219:23: error: unresolved reference 'R'.
+            .setTitle(R.string.dialog_add_title)
+                      ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:221:32: error: unresolved reference 'android'.
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                               ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:221:55: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                                                      ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:221:58: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                                                         ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:223:25: error: unresolved reference 'isEmpty'.
+                if (iso.isEmpty()) {
+                        ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:224:27: error: unresolved reference 'getString'.
+                    toast(getString(R.string.msg_pick_date))
+                          ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:224:37: error: unresolved reference 'R'.
+                    toast(getString(R.string.msg_pick_date))
+                                    ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:225:21: error: return type mismatch: expected 'ERROR CLASS: Cannot infer type variable TypeVariable(_L)', actual 'Unit'.
+                    return@setPositiveButton
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:231:59: error: unresolved reference 'toDoubleOrNull'.
+                    cardTips = etCardTips.text.toString().toDoubleOrNull() ?: 0.0,
+                                                          ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:232:59: error: unresolved reference 'toDoubleOrNull'.
+                    cashTips = etCashTips.text.toString().toDoubleOrNull() ?: 0.0,
+                                                          ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:233:63: error: unresolved reference 'toDoubleOrNull'.
+                    cashPaidIn = etCashPaidIn.text.toString().toDoubleOrNull() ?: 0.0,
+                                                              ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:235:53: error: unresolved reference 'trim'.
+                    notes = etNotes.text.toString().trim()
+                                                    ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:241:23: error: unresolved reference 'getString'.
+                toast(getString(R.string.msg_added, record.date))
+                      ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:241:33: error: unresolved reference 'R'.
+                toast(getString(R.string.msg_added, record.date))
+                                ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:243:32: error: unresolved reference 'android'.
+            .setNegativeButton(android.R.string.cancel, null)
+                               ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:248:20: error: unresolved reference 'layoutInflater'.
+        val view = layoutInflater.inflate(R.layout.dialog_edit_record, null)
+                   ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:248:43: error: unresolved reference 'R'.
+        val view = layoutInflater.inflate(R.layout.dialog_edit_record, null)
+                                          ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:249:40: error: unresolved reference 'EditText'.
+        val etDate = view.findViewById<EditText>(R.id.etEditDate)
+                                       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:249:50: error: unresolved reference 'R'.
+        val etDate = view.findViewById<EditText>(R.id.etEditDate)
+                                                 ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:250:44: error: unresolved reference 'EditText'.
+        val etCardTips = view.findViewById<EditText>(R.id.etEditCardTips)
+                                           ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:250:54: error: unresolved reference 'R'.
+        val etCardTips = view.findViewById<EditText>(R.id.etEditCardTips)
+                                                     ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:251:44: error: unresolved reference 'EditText'.
+        val etCashTips = view.findViewById<EditText>(R.id.etEditCashTips)
+                                           ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:251:54: error: unresolved reference 'R'.
+        val etCashTips = view.findViewById<EditText>(R.id.etEditCashTips)
+                                                     ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:252:46: error: unresolved reference 'EditText'.
+        val etCashPaidIn = view.findViewById<EditText>(R.id.etEditCashPaidIn)
+                                             ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:252:56: error: unresolved reference 'R'.
+        val etCashPaidIn = view.findViewById<EditText>(R.id.etEditCashPaidIn)
+                                                       ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:253:41: error: unresolved reference 'EditText'.
+        val etNotes = view.findViewById<EditText>(R.id.etEditNotes)
+                                        ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:253:51: error: unresolved reference 'R'.
+        val etNotes = view.findViewById<EditText>(R.id.etEditNotes)
+                                                  ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:254:46: error: unresolved reference 'google'.
+        val swDayOff = view.findViewById<com.google.android.material.materialswitch.MaterialSwitch>(R.id.swEditDayOff)
+                                             ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:254:101: error: unresolved reference 'R'.
+        val swDayOff = view.findViewById<com.google.android.material.materialswitch.MaterialSwitch>(R.id.swEditDayOff)
+                                                                                                    ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:259:60: error: unresolved reference 'format'.
+        etCardTips.setText(if (record.cardTips > 0) "%.2f".format(record.cardTips) else "")
+                                                           ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:260:60: error: unresolved reference 'format'.
+        etCashTips.setText(if (record.cashTips > 0) "%.2f".format(record.cashTips) else "")
+                                                           ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:261:64: error: unresolved reference 'format'.
+        etCashPaidIn.setText(if (record.cashPaidIn > 0) "%.2f".format(record.cashPaidIn) else "")
+                                                               ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:265:9: error: unresolved reference 'AlertDialog'.
+        AlertDialog.Builder(this)
+        ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:266:23: error: unresolved reference 'R'.
+            .setTitle(R.string.dialog_edit_title)
+                      ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:268:32: error: unresolved reference 'android'.
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                               ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:268:55: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                                                      ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:268:58: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                                                         ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:272:62: error: unresolved reference 'toDoubleOrNull'.
+                record.cardTips = etCardTips.text.toString().toDoubleOrNull() ?: 0.0
+                                                             ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:273:62: error: unresolved reference 'toDoubleOrNull'.
+                record.cashTips = etCashTips.text.toString().toDoubleOrNull() ?: 0.0
+                                                             ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:274:66: error: unresolved reference 'toDoubleOrNull'.
+                record.cashPaidIn = etCashPaidIn.text.toString().toDoubleOrNull() ?: 0.0
+                                                                 ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:275:56: error: unresolved reference 'trim'.
+                record.notes = etNotes.text.toString().trim()
+                                                       ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:280:23: error: unresolved reference 'getString'.
+                toast(getString(R.string.msg_updated, record.date))
+                      ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:280:33: error: unresolved reference 'R'.
+                toast(getString(R.string.msg_updated, record.date))
+                                ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:282:42: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .setNeutralButton("Reset") { _, _ ->
+                                         ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:282:45: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .setNeutralButton("Reset") { _, _ ->
+                                            ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:291:32: error: unresolved reference 'android'.
+            .setNegativeButton(android.R.string.cancel, null)
+                               ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:295:38: error: unresolved reference 'EditText'.
+    private fun pickDateInto(target: EditText) {
+                                     ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:302:22: error: unresolved reference 'DatePickerDialog'.
+        val dialog = DatePickerDialog(
+                     ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:304:15: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            { _, year, month, day ->
+              ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:304:18: error: cannot infer type for value parameter 'year'. Specify it explicitly.
+            { _, year, month, day ->
+                 ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:304:24: error: cannot infer type for value parameter 'month'. Specify it explicitly.
+            { _, year, month, day ->
+                       ^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:304:31: error: cannot infer type for value parameter 'day'. Specify it explicitly.
+            { _, year, month, day ->
+                              ^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:306:24: error: unresolved reference 'setText'.
+                target.setText(DateUtils.displayFromIso(iso))
+                       ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:307:24: error: unresolved reference 'tag'.
+                target.tag = iso
+                       ^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:314:47: error: unresolved reference 'apply'.
+        val first = (cal.clone() as Calendar).apply { set(Calendar.DAY_OF_MONTH, 1) }
+                                              ^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:314:55: error: unresolved reference 'set'.
+        val first = (cal.clone() as Calendar).apply { set(Calendar.DAY_OF_MONTH, 1) }
+                                                      ^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:315:46: error: unresolved reference 'apply'.
+        val last = (cal.clone() as Calendar).apply { set(Calendar.DAY_OF_MONTH, getActualMaximum(Calendar.DAY_OF_MONTH)) }
+                                             ^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:315:54: error: unresolved reference 'set'.
+        val last = (cal.clone() as Calendar).apply { set(Calendar.DAY_OF_MONTH, getActualMaximum(Calendar.DAY_OF_MONTH)) }
+                                                     ^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:315:81: error: unresolved reference 'getActualMaximum'.
+        val last = (cal.clone() as Calendar).apply { set(Calendar.DAY_OF_MONTH, getActualMaximum(Calendar.DAY_OF_MONTH)) }
+                                                                                ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:328:19: error: unresolved reference 'getString'.
+            toast(getString(R.string.msg_no_amount_owed, monthName))
+                  ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:328:29: error: unresolved reference 'R'.
+            toast(getString(R.string.msg_no_amount_owed, monthName))
+                            ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:332:20: error: unresolved reference 'layoutInflater'.
+        val view = layoutInflater.inflate(R.layout.dialog_paid_month, null)
+                   ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:332:43: error: unresolved reference 'R'.
+        val view = layoutInflater.inflate(R.layout.dialog_paid_month, null)
+                                          ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:333:40: error: unresolved reference 'android'.
+        val tvInfo = view.findViewById<android.widget.TextView>(R.id.tvMonthInfo)
+                                       ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:333:65: error: unresolved reference 'R'.
+        val tvInfo = view.findViewById<android.widget.TextView>(R.id.tvMonthInfo)
+                                                                ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:334:45: error: unresolved reference 'google'.
+        val tilPaid = view.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilPaidAmount)
+                                            ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:334:96: error: unresolved reference 'R'.
+        val tilPaid = view.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilPaidAmount)
+                                                                                               ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:335:40: error: unresolved reference 'EditText'.
+        val etPaid = view.findViewById<EditText>(R.id.etPaidAmount)
+                                       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:335:50: error: unresolved reference 'R'.
+        val etPaid = view.findViewById<EditText>(R.id.etPaidAmount)
+                                                 ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:339:34: error: unresolved reference 'View'.
+            tilPaid.visibility = View.GONE
+                                 ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:341:63: error: unresolved reference 'format'.
+            tvInfo.text = "$monthName\nAmount owed: R${"%.2f".format(owed)}"
+                                                              ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:342:34: error: unresolved reference 'View'.
+            tilPaid.visibility = View.VISIBLE
+                                 ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:343:35: error: unresolved reference 'format'.
+            etPaid.setText("%.2f".format(owed))
+                                  ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:346:9: error: unresolved reference 'AlertDialog'.
+        AlertDialog.Builder(this)
+        ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:347:23: error: unresolved reference 'R'.
+            .setTitle(R.string.dialog_paid_title)
+                      ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:349:79: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .setPositiveButton(if (isAlreadyPaid) "Reverse" else "Confirm") { _, _ ->
+                                                                              ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:349:82: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .setPositiveButton(if (isAlreadyPaid) "Reverse" else "Confirm") { _, _ ->
+                                                                                 ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:352:27: error: unresolved reference 'getString'.
+                    toast(getString(R.string.msg_unpaid, monthName))
+                          ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:352:37: error: unresolved reference 'R'.
+                    toast(getString(R.string.msg_unpaid, monthName))
+                                    ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:354:61: error: unresolved reference 'toDoubleOrNull'.
+                    val paidAmount = etPaid.text.toString().toDoubleOrNull() ?: owed
+                                                            ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:359:36: error: unresolved reference 'DateFormat'.
+                        paidDate = DateFormat.format("yyyy-MM-dd", java.util.Date()).toString(),
+                                   ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:367:27: error: unresolved reference 'getString'.
+                    toast(getString(R.string.msg_paid, monthName))
+                          ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:367:37: error: unresolved reference 'R'.
+                    toast(getString(R.string.msg_paid, monthName))
+                                    ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:371:32: error: unresolved reference 'android'.
+            .setNegativeButton(android.R.string.cancel, null)
+                               ^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:378:33: error: unresolved reference 'filter'.
+        val recs = repo.records.filter { it.monthKey == monthKey && !it.isOff }
+                                ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:378:42: error: unresolved reference 'it'.
+        val recs = repo.records.filter { it.monthKey == monthKey && !it.isOff }
+                                         ^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:378:70: error: unresolved reference 'it'.
+        val recs = repo.records.filter { it.monthKey == monthKey && !it.isOff }
+                                                                     ^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:380:19: error: unresolved reference 'getString'.
+            toast(getString(R.string.msg_no_data, monthName))
+                  ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:380:29: error: unresolved reference 'R'.
+            toast(getString(R.string.msg_no_data, monthName))
+                            ^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:384:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("Wage Tracker - $monthName")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:385:12: error: unresolved reference 'appendLine'.
+        sb.appendLine()
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:389:19: error: for-loop range must have an 'iterator()' method.
+        for (r in recs.sortedBy { it.isoDate }) {
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:389:35: error: unresolved reference 'it'.
+        for (r in recs.sortedBy { it.isoDate }) {
+                                  ^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:390:16: error: unresolved reference 'appendLine'.
+            sb.appendLine("${r.date}: card R${"%.0f".format(r.cardTips)} � cash R${"%.0f".format(r.cashTips)} � paid in R${"%.0f".format(r.cashPaidIn)}")
+               ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:390:54: error: unresolved reference 'format'.
+            sb.appendLine("${r.date}: card R${"%.0f".format(r.cardTips)} � cash R${"%.0f".format(r.cashTips)} � paid in R${"%.0f".format(r.cashPaidIn)}")
+                                                     ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:390:91: error: unresolved reference 'format'.
+            sb.appendLine("${r.date}: card R${"%.0f".format(r.cardTips)} � cash R${"%.0f".format(r.cashTips)} � paid in R${"%.0f".format(r.cashPaidIn)}")
+                                                                                          ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:390:131: error: unresolved reference 'format'.
+            sb.appendLine("${r.date}: card R${"%.0f".format(r.cardTips)} � cash R${"%.0f".format(r.cashTips)} � paid in R${"%.0f".format(r.cashPaidIn)}")
+                                                                                                                                  ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:395:12: error: unresolved reference 'appendLine'.
+        sb.appendLine()
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:396:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("Card: R${"%.2f".format(card)}")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:396:40: error: unresolved reference 'format'.
+        sb.appendLine("Card: R${"%.2f".format(card)}")
+                                       ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:397:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("Cash: R${"%.2f".format(cash)}")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:397:40: error: unresolved reference 'format'.
+        sb.appendLine("Cash: R${"%.2f".format(cash)}")
+                                       ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:398:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("Paid in: R${"%.2f".format(paid)}")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:398:43: error: unresolved reference 'format'.
+        sb.appendLine("Paid in: R${"%.2f".format(paid)}")
+                                          ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:399:12: error: unresolved reference 'appendLine'.
+        sb.appendLine("You are owed: R${"%.2f".format(card + paid)}")
+           ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:399:48: error: unresolved reference 'format'.
+        sb.appendLine("You are owed: R${"%.2f".format(card + paid)}")
+                                               ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:401:22: error: unresolved reference 'Intent'.
+        val intent = Intent(Intent.ACTION_SEND).apply {
+                     ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:401:29: error: unresolved reference 'Intent'.
+        val intent = Intent(Intent.ACTION_SEND).apply {
+                            ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:402:13: error: unresolved reference 'type'.
+            type = "text/plain"
+            ^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:403:13: error: unresolved reference 'putExtra'.
+            putExtra(Intent.EXTRA_TEXT, sb.toString())
+            ^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:403:22: error: unresolved reference 'Intent'.
+            putExtra(Intent.EXTRA_TEXT, sb.toString())
+                     ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:405:9: error: unresolved reference 'startActivity'.
+        startActivity(Intent.createChooser(intent, "Share $monthName"))
+        ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:405:23: error: unresolved reference 'Intent'.
+        startActivity(Intent.createChooser(intent, "Share $monthName"))
+                      ^^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:409:9: error: unresolved reference 'Toast'.
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        ^^^^^
+app\src\main\java\com\example\wagetracker\MainActivity.kt:409:39: error: unresolved reference 'Toast'.
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                                      ^^^^^
+app\src\main\java\com\example\wagetracker\MonthSummaryCalculator.kt:40:24: error: unresolved reference 'count'.
+        return records.count { it.monthKey == monthKey && !it.isOff }
+                       ^^^^^
+app\src\main\java\com\example\wagetracker\MonthSummaryCalculator.kt:40:32: error: unresolved reference 'it'.
+        return records.count { it.monthKey == monthKey && !it.isOff }
+                               ^^
+app\src\main\java\com\example\wagetracker\MonthSummaryCalculator.kt:40:60: error: unresolved reference 'it'.
+        return records.count { it.monthKey == monthKey && !it.isOff }
+                                                           ^^
+app\src\main\java\com\example\wagetracker\MonthSummaryCalculator.kt:44:23: error: unresolved reference 'format'.
+        return String.format(
+                      ^^^^^^
+app\src\main\java\com\example\wagetracker\PaidMonthRecord.kt:14:43: error: unresolved reference 'coerceAtLeast'.
+        get() = (amountOwed - paidAmount).coerceAtLeast(0.0)
+                                          ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:3:8: error: unresolved reference 'android'.
+import android.view.LayoutInflater
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:4:8: error: unresolved reference 'android'.
+import android.view.View
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:5:8: error: unresolved reference 'android'.
+import android.view.ViewGroup
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:6:8: error: unresolved reference 'androidx'.
+import androidx.recyclerview.widget.DiffUtil
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:7:8: error: unresolved reference 'androidx'.
+import androidx.recyclerview.widget.ListAdapter
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:8:8: error: unresolved reference 'androidx'.
+import androidx.recyclerview.widget.RecyclerView
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:9:32: error: unresolved reference 'databinding'.
+import com.example.wagetracker.databinding.ItemRecordBinding
+                               ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:14:5: error: unresolved reference 'ListAdapter'.
+) : ListAdapter<DailyRecord, RecordAdapter.ViewHolder>(DIFF) {
+    ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:17:9: error: unresolved reference 'setHasStableIds'.
+        setHasStableIds(true)
+        ^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:20:5: error: 'getItemId' overrides nothing.
+    override fun getItemId(position: Int): Long =
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:21:9: error: unresolved reference 'getItem'.
+        getItem(position).id.hashCode().toLong()
+        ^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:23:41: error: unresolved reference 'ItemRecordBinding'.
+    inner class ViewHolder(val binding: ItemRecordBinding) :
+                                        ^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:24:9: error: unresolved reference 'RecyclerView'.
+        RecyclerView.ViewHolder(binding.root)
+        ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:24:41: error: unresolved reference 'root'.
+        RecyclerView.ViewHolder(binding.root)
+                                        ^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:26:5: error: 'onCreateViewHolder' overrides nothing.
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:26:45: error: unresolved reference 'ViewGroup'.
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+                                            ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:27:23: error: unresolved reference 'ItemRecordBinding'.
+        val binding = ItemRecordBinding.inflate(
+                      ^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:28:13: error: unresolved reference 'LayoutInflater'.
+            LayoutInflater.from(parent.context), parent, false
+            ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:28:40: error: unresolved reference 'context'.
+            LayoutInflater.from(parent.context), parent, false
+                                       ^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:33:5: error: 'onBindViewHolder' overrides nothing.
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:34:22: error: unresolved reference 'getItem'.
+        val record = getItem(position)
+                     ^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:35:24: error: unresolved reference 'apply'.
+        holder.binding.apply {
+                       ^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:36:13: error: unresolved reference 'tvDate'.
+            tvDate.text = if (record.isOff) "${record.date} (OFF)" else record.date
+            ^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:39:17: error: unresolved reference 'tvCardTips'.
+                tvCardTips.text = "-"
+                ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:40:17: error: unresolved reference 'tvCashTips'.
+                tvCashTips.text = "-"
+                ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:41:17: error: unresolved reference 'tvCashPaidIn'.
+                tvCashPaidIn.text = "-"
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:42:17: error: unresolved reference 'tvDayTotal'.
+                tvDayTotal.text = "-"
+                ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:43:17: error: unresolved reference 'tvDayTotal'.
+                tvDayTotal.visibility = View.VISIBLE
+                ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:43:41: error: unresolved reference 'View'.
+                tvDayTotal.visibility = View.VISIBLE
+                                        ^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:45:17: error: unresolved reference 'tvCardTips'.
+                tvCardTips.text = String.format("R%.0f", record.cardTips)
+                ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:45:42: error: unresolved reference 'format'.
+                tvCardTips.text = String.format("R%.0f", record.cardTips)
+                                         ^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:46:17: error: unresolved reference 'tvCashTips'.
+                tvCashTips.text = String.format("R%.0f", record.cashTips)
+                ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:46:42: error: unresolved reference 'format'.
+                tvCashTips.text = String.format("R%.0f", record.cashTips)
+                                         ^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:47:17: error: unresolved reference 'tvCashPaidIn'.
+                tvCashPaidIn.text = String.format("R%.0f", record.cashPaidIn)
+                ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:47:44: error: unresolved reference 'format'.
+                tvCashPaidIn.text = String.format("R%.0f", record.cashPaidIn)
+                                           ^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:48:17: error: unresolved reference 'tvDayTotal'.
+                tvDayTotal.text = String.format("R%.0f", record.dayTotal)
+                ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:48:42: error: unresolved reference 'format'.
+                tvDayTotal.text = String.format("R%.0f", record.dayTotal)
+                                         ^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:52:17: error: unresolved reference 'tvNotes'.
+                tvNotes.visibility = View.VISIBLE
+                ^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:52:38: error: unresolved reference 'View'.
+                tvNotes.visibility = View.VISIBLE
+                                     ^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:53:17: error: unresolved reference 'tvNotes'.
+                tvNotes.text = record.notes
+                ^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:55:17: error: unresolved reference 'tvNotes'.
+                tvNotes.visibility = View.GONE
+                ^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:55:38: error: unresolved reference 'View'.
+                tvNotes.visibility = View.GONE
+                                     ^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:58:13: error: unresolved reference 'btnDelete'.
+            btnDelete.setOnClickListener { onDeleteClick(record) }
+            ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:59:13: error: unresolved reference 'btnEdit'.
+            btnEdit.setOnClickListener { onEditClick(record) }
+            ^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:64:37: error: unresolved reference 'DiffUtil'.
+        private val DIFF = object : DiffUtil.ItemCallback<DailyRecord>() {
+                                    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:65:13: error: 'areItemsTheSame' overrides nothing.
+            override fun areItemsTheSame(a: DailyRecord, b: DailyRecord) = a.id == b.id
+            ^^^^^^^^
+app\src\main\java\com\example\wagetracker\RecordAdapter.kt:66:13: error: 'areContentsTheSame' overrides nothing.
+            override fun areContentsTheSame(a: DailyRecord, b: DailyRecord) = a == b
+            ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:3:8: error: unresolved reference 'android'.
+import android.os.Bundle
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:4:8: error: unresolved reference 'androidx'.
+import androidx.appcompat.app.AppCompatActivity
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:5:8: error: unresolved reference 'androidx'.
+import androidx.preference.PreferenceFragmentCompat
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:7:26: error: unresolved reference 'AppCompatActivity'.
+class SettingsActivity : AppCompatActivity() {
+                         ^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:8:5: error: 'onCreate' overrides nothing.
+    override fun onCreate(savedInstanceState: Bundle?) {
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:8:47: error: unresolved reference 'Bundle'.
+    override fun onCreate(savedInstanceState: Bundle?) {
+                                              ^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:9:9: error: unresolved reference 'AppCompatActivity'.
+        super.onCreate(savedInstanceState)
+        ^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:9:15: error: unresolved reference 'onCreate'.
+        super.onCreate(savedInstanceState)
+              ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:10:9: error: unresolved reference 'setContentView'.
+        setContentView(R.layout.activity_settings)
+        ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:10:24: error: unresolved reference 'R'.
+        setContentView(R.layout.activity_settings)
+                       ^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:12:13: error: unresolved reference 'supportFragmentManager'.
+            supportFragmentManager.beginTransaction()
+            ^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:13:26: error: unresolved reference 'R'.
+                .replace(R.id.settingsContainer, SettingsFragment())
+                         ^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:16:9: error: unresolved reference 'findViewById'.
+        findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
+        ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:16:26: error: unresolved reference 'google'.
+        findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
+                         ^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:16:74: error: unresolved reference 'R'.
+        findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
+                                                                         ^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:17:45: error: unresolved reference 'finish'.
+            .setNavigationOnClickListener { finish() }
+                                            ^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:20:30: error: unresolved reference 'PreferenceFragmentCompat'.
+    class SettingsFragment : PreferenceFragmentCompat() {
+                             ^^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:21:9: error: 'onCreatePreferences' overrides nothing.
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:21:62: error: unresolved reference 'Bundle'.
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+                                                             ^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:22:13: error: unresolved reference 'setPreferencesFromResource'.
+            setPreferencesFromResource(R.xml.preferences, rootKey)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:22:40: error: unresolved reference 'R'.
+            setPreferencesFromResource(R.xml.preferences, rootKey)
+                                       ^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:24:13: error: unresolved reference 'findPreference'.
+            findPreference<androidx.preference.SwitchPreferenceCompat>("dark_mode")
+            ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:24:28: error: unresolved reference 'androidx'.
+            findPreference<androidx.preference.SwitchPreferenceCompat>("dark_mode")
+                           ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:25:51: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+                ?.setOnPreferenceChangeListener { _, newValue ->
+                                                  ^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:25:54: error: cannot infer type for value parameter 'newValue'. Specify it explicitly.
+                ?.setOnPreferenceChangeListener { _, newValue ->
+                                                     ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:28:25: error: unresolved reference 'androidx'.
+                        androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+                        ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:30:25: error: unresolved reference 'androidx'.
+                        androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+                        ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:32:21: error: unresolved reference 'androidx'.
+                    androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(mode)
+                    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\SettingsActivity.kt:33:36: error: unresolved reference 'requireContext'.
+                    WageRepository(requireContext()).setDarkMode(enabled)
+                                   ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:3:8: error: unresolved reference 'android'.
+import android.content.Context
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:4:8: error: unresolved reference 'android'.
+import android.content.SharedPreferences
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:5:12: error: unresolved reference 'google'.
+import com.google.gson.Gson
+           ^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:6:12: error: unresolved reference 'google'.
+import com.google.gson.reflect.TypeToken
+           ^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:14:31: error: unresolved reference 'Context'.
+class WageRepository(context: Context) {
+                              ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:16:24: error: unresolved reference 'SharedPreferences'.
+    private val prefs: SharedPreferences =
+                       ^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:17:17: error: unresolved reference 'applicationContext'.
+        context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                ^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:17:64: error: unresolved reference 'Context'.
+        context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                                                               ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:18:24: error: unresolved reference 'Gson'.
+    private val gson = Gson()
+                       ^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:28:28: error: unresolved reference 'indexOfFirst'.
+        val idx = _records.indexOfFirst { it.id == record.id }
+                           ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:28:43: error: unresolved reference 'it'.
+        val idx = _records.indexOfFirst { it.id == record.id }
+                                          ^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:34:28: error: unresolved reference 'indexOfFirst'.
+        val idx = _records.indexOfFirst { it.id == record.id }
+                           ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:34:43: error: unresolved reference 'it'.
+        val idx = _records.indexOfFirst { it.id == record.id }
+                                          ^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:42:28: error: unresolved reference 'indexOfFirst'.
+        val idx = _records.indexOfFirst { it.id == id }
+                           ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:42:43: error: unresolved reference 'it'.
+        val idx = _records.indexOfFirst { it.id == id }
+                                          ^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:50:26: error: unresolved reference 'coerceIn'.
+        val safe = index.coerceIn(0, _records.size)
+                         ^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:55:54: error: unresolved reference 'any'.
+    fun monthPaid(monthKey: String): Boolean = _paid.any { it.monthKey == monthKey }
+                                                     ^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:55:60: error: unresolved reference 'it'.
+    fun monthPaid(monthKey: String): Boolean = _paid.any { it.monthKey == monthKey }
+                                                           ^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:57:64: error: unresolved reference 'firstOrNull'.
+    fun paidRecord(monthKey: String): PaidMonthRecord? = _paid.firstOrNull { it.monthKey == monthKey }
+                                                               ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:57:78: error: unresolved reference 'it'.
+    fun paidRecord(monthKey: String): PaidMonthRecord? = _paid.firstOrNull { it.monthKey == monthKey }
+                                                                             ^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:60:25: error: unresolved reference 'indexOfFirst'.
+        val idx = _paid.indexOfFirst { it.monthKey == record.monthKey }
+                        ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:60:40: error: unresolved reference 'it'.
+        val idx = _paid.indexOfFirst { it.monthKey == record.monthKey }
+                                       ^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:66:25: error: unresolved reference 'indexOfFirst'.
+        val idx = _paid.indexOfFirst { it.monthKey == monthKey }
+                        ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:66:40: error: unresolved reference 'it'.
+        val idx = _paid.indexOfFirst { it.monthKey == monthKey }
+                                       ^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:74:15: error: unresolved reference 'edit'.
+        prefs.edit().putBoolean(KEY_DARK, enabled).apply()
+              ^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:77:39: error: unresolved reference 'getBoolean'.
+    fun isDarkMode(): Boolean = prefs.getBoolean(KEY_DARK, false)
+                                      ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:80:15: error: unresolved reference 'edit'.
+        prefs.edit().putString(KEY_RECORDS, gson.toJson(_records)).apply()
+              ^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:84:15: error: unresolved reference 'edit'.
+        prefs.edit().putString(KEY_PAID, gson.toJson(_paid)).apply()
+              ^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:88:26: error: unresolved reference 'getString'.
+        val json = prefs.getString(key, "[]")
+                         ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:89:29: error: unresolved reference 'TypeToken'.
+        val type = object : TypeToken<MutableList<T>>() {}.type
+                            ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:89:60: error: unresolved reference 'type'.
+        val type = object : TypeToken<MutableList<T>>() {}.type
+                                                           ^^^^
+app\src\main\java\com\example\wagetracker\WageRepository.kt:90:61: error: unresolved reference 'mutableListOf'.
+        return gson.fromJson<MutableList<T>>(json, type) ?: mutableListOf()
+                                                            ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:3:8: error: unresolved reference 'android'.
+import android.app.PendingIntent
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:4:8: error: unresolved reference 'android'.
+import android.appwidget.AppWidgetManager
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:5:8: error: unresolved reference 'android'.
+import android.appwidget.AppWidgetProvider
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:6:8: error: unresolved reference 'android'.
+import android.content.ComponentName
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:7:8: error: unresolved reference 'android'.
+import android.content.Context
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:8:8: error: unresolved reference 'android'.
+import android.content.Intent
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:9:8: error: unresolved reference 'android'.
+import android.widget.RemoteViews
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:13:28: error: unresolved reference 'AppWidgetProvider'.
+class WageWidgetProvider : AppWidgetProvider() {
+                           ^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:15:5: error: 'onUpdate' overrides nothing.
+    override fun onUpdate(
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:16:18: error: unresolved reference 'Context'.
+        context: Context,
+                 ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:17:27: error: unresolved reference 'AppWidgetManager'.
+        appWidgetManager: AppWidgetManager,
+                          ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:20:22: error: unresolved reference 'forEach'.
+        appWidgetIds.forEach { id -> updateOne(context, appWidgetManager, id) }
+                     ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:20:32: error: cannot infer type for value parameter 'id'. Specify it explicitly.
+        appWidgetIds.forEach { id -> updateOne(context, appWidgetManager, id) }
+                               ^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:24:33: error: unresolved reference 'Context'.
+        fun refreshAll(context: Context) {
+                                ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:25:23: error: unresolved reference 'AppWidgetManager'.
+            val mgr = AppWidgetManager.getInstance(context)
+                      ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:26:43: error: unresolved reference 'ComponentName'.
+            val ids = mgr.getAppWidgetIds(ComponentName(context, WageWidgetProvider::class.java))
+                                          ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:26:92: error: unresolved reference 'java'.
+            val ids = mgr.getAppWidgetIds(ComponentName(context, WageWidgetProvider::class.java))
+                                                                                           ^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:27:27: error: cannot infer type for value parameter 'id'. Specify it explicitly.
+            ids.forEach { id -> updateOne(context, mgr, id) }
+                          ^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:30:40: error: unresolved reference 'Context'.
+        private fun updateOne(context: Context, mgr: AppWidgetManager, id: Int) {
+                                       ^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:30:54: error: unresolved reference 'AppWidgetManager'.
+        private fun updateOne(context: Context, mgr: AppWidgetManager, id: Int) {
+                                                     ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:37:25: error: unresolved reference 'RemoteViews'.
+            val views = RemoteViews(context.packageName, R.layout.widget_wage)
+                        ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:37:45: error: unresolved reference 'packageName'.
+            val views = RemoteViews(context.packageName, R.layout.widget_wage)
+                                            ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:37:58: error: unresolved reference 'R'.
+            val views = RemoteViews(context.packageName, R.layout.widget_wage)
+                                                         ^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:38:35: error: unresolved reference 'R'.
+            views.setTextViewText(R.id.widgetMonth, MonthSummaryCalculator.monthName(cal))
+                                  ^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:39:30: error: unresolved reference 'any'.
+            if (repo.records.any { it.monthKey == monthKey }) {
+                             ^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:39:36: error: unresolved reference 'it'.
+            if (repo.records.any { it.monthKey == monthKey }) {
+                                   ^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:42:21: error: unresolved reference 'R'.
+                    R.id.widgetOwed,
+                    ^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:43:29: error: unresolved reference 'getString'.
+                    context.getString(R.string.widget_owed, "%,.2f".format(Locale.ENGLISH, amount))
+                            ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:43:39: error: unresolved reference 'R'.
+                    context.getString(R.string.widget_owed, "%,.2f".format(Locale.ENGLISH, amount))
+                                      ^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:43:69: error: unresolved reference 'format'.
+                    context.getString(R.string.widget_owed, "%,.2f".format(Locale.ENGLISH, amount))
+                                                                    ^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:46:21: error: unresolved reference 'R'.
+                    R.id.widgetSub,
+                    ^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:47:68: error: unresolved reference 'format'.
+                    if (isPaid) "Paid in full" else "Card ${"%.0f".format(totals.cardTips)} + Paid in ${"%.0f".format(totals.cashPaidIn)}"
+                                                                   ^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:47:112: error: unresolved reference 'format'.
+                    if (isPaid) "Paid in full" else "Card ${"%.0f".format(totals.cardTips)} + Paid in ${"%.0f".format(totals.cashPaidIn)}"
+                                                                                                               ^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:50:39: error: unresolved reference 'R'.
+                views.setTextViewText(R.id.widgetOwed, context.getString(R.string.widget_empty))
+                                      ^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:50:64: error: unresolved reference 'getString'.
+                views.setTextViewText(R.id.widgetOwed, context.getString(R.string.widget_empty))
+                                                               ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:50:74: error: unresolved reference 'R'.
+                views.setTextViewText(R.id.widgetOwed, context.getString(R.string.widget_empty))
+                                                                         ^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:51:39: error: unresolved reference 'R'.
+                views.setTextViewText(R.id.widgetSub, "Tap to open")
+                                      ^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:54:30: error: unresolved reference 'Intent'.
+            val openIntent = Intent(context, MainActivity::class.java)
+                             ^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:54:66: error: unresolved reference 'java'.
+            val openIntent = Intent(context, MainActivity::class.java)
+                                                                 ^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:55:22: error: unresolved reference 'PendingIntent'.
+            val pi = PendingIntent.getActivity(
+                     ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:57:17: error: unresolved reference 'PendingIntent'.
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:57:54: error: unresolved reference 'PendingIntent'.
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                                                     ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:59:43: error: unresolved reference 'R'.
+            views.setOnClickPendingIntent(R.id.widgetOwed, pi)
+                                          ^
+app\src\main\java\com\example\wagetracker\WageWidgetProvider.kt:60:17: error: unresolved reference 'updateAppWidget'.
+            mgr.updateAppWidget(id, views)
+                ^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:3:8: error: unresolved reference 'android'.
+import android.view.LayoutInflater
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:4:8: error: unresolved reference 'android'.
+import android.view.View
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:5:8: error: unresolved reference 'android'.
+import android.view.ViewGroup
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:6:8: error: unresolved reference 'androidx'.
+import androidx.recyclerview.widget.DiffUtil
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:7:8: error: unresolved reference 'androidx'.
+import androidx.recyclerview.widget.ListAdapter
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:8:8: error: unresolved reference 'androidx'.
+import androidx.recyclerview.widget.RecyclerView
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:9:32: error: unresolved reference 'databinding'.
+import com.example.wagetracker.databinding.ItemYearMonthBinding
+                               ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:23:5: error: unresolved reference 'ListAdapter'.
+) : ListAdapter<YearMonthRow, YearAdapter.VH>(DIFF) {
+    ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:25:33: error: unresolved reference 'ItemYearMonthBinding'.
+    inner class VH(val binding: ItemYearMonthBinding) : RecyclerView.ViewHolder(binding.root)
+                                ^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:25:57: error: unresolved reference 'RecyclerView'.
+    inner class VH(val binding: ItemYearMonthBinding) : RecyclerView.ViewHolder(binding.root)
+                                                        ^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:25:89: error: unresolved reference 'root'.
+    inner class VH(val binding: ItemYearMonthBinding) : RecyclerView.ViewHolder(binding.root)
+                                                                                        ^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:27:5: error: 'onCreateViewHolder' overrides nothing.
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:27:45: error: unresolved reference 'ViewGroup'.
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+                                            ^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:28:23: error: unresolved reference 'ItemYearMonthBinding'.
+        val binding = ItemYearMonthBinding.inflate(
+                      ^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:29:13: error: unresolved reference 'LayoutInflater'.
+            LayoutInflater.from(parent.context), parent, false
+            ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:29:40: error: unresolved reference 'context'.
+            LayoutInflater.from(parent.context), parent, false
+                                       ^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:34:5: error: 'onBindViewHolder' overrides nothing.
+    override fun onBindViewHolder(holder: VH, position: Int) {
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:35:19: error: unresolved reference 'getItem'.
+        val row = getItem(position)
+                  ^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:36:24: error: unresolved reference 'apply'.
+        holder.binding.apply {
+                       ^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:37:13: error: unresolved reference 'tvYearMonth'.
+            tvYearMonth.text = row.monthName
+            ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:38:13: error: unresolved reference 'tvYearTips'.
+            tvYearTips.text = "R${"%.0f".format(row.tips)}"
+            ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:38:42: error: unresolved reference 'format'.
+            tvYearTips.text = "R${"%.0f".format(row.tips)}"
+                                         ^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:39:13: error: unresolved reference 'tvYearOwed'.
+            tvYearOwed.text = if (row.isPaid) "R0" else "R${"%.0f".format(row.owed)}"
+            ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:39:68: error: unresolved reference 'format'.
+            tvYearOwed.text = if (row.isPaid) "R0" else "R${"%.0f".format(row.owed)}"
+                                                                   ^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:40:13: error: unresolved reference 'tvYearPaid'.
+            tvYearPaid.text = "R${"%.0f".format(row.paid)}"
+            ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:40:42: error: unresolved reference 'format'.
+            tvYearPaid.text = "R${"%.0f".format(row.paid)}"
+                                         ^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:41:13: error: unresolved reference 'chipYearStatus'.
+            chipYearStatus.text = if (row.isPaid) "PAID" else "UNPAID"
+            ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:42:13: error: unresolved reference 'chipYearStatus'.
+            chipYearStatus.setChipBackgroundColorResource(
+            ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:43:33: error: unresolved reference 'R'.
+                if (row.isPaid) R.color.wage_paid else R.color.wage_short
+                                ^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:43:56: error: unresolved reference 'R'.
+                if (row.isPaid) R.color.wage_paid else R.color.wage_short
+                                                       ^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:45:13: error: unresolved reference 'chipYearStatus'.
+            chipYearStatus.setTextColor(0xFFFFFFFF.toInt())
+            ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:47:17: error: unresolved reference 'tvYearShort'.
+                tvYearShort.visibility = View.VISIBLE
+                ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:47:42: error: unresolved reference 'View'.
+                tvYearShort.visibility = View.VISIBLE
+                                         ^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:48:17: error: unresolved reference 'tvYearShort'.
+                tvYearShort.text = "Short by R${"%.0f".format(row.short)}"
+                ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:48:56: error: unresolved reference 'format'.
+                tvYearShort.text = "Short by R${"%.0f".format(row.short)}"
+                                                       ^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:50:17: error: unresolved reference 'tvYearShort'.
+                tvYearShort.visibility = View.GONE
+                ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:50:42: error: unresolved reference 'View'.
+                tvYearShort.visibility = View.GONE
+                                         ^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:52:13: error: unresolved reference 'root'.
+            root.setOnClickListener { onClick(row) }
+            ^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:57:37: error: unresolved reference 'DiffUtil'.
+        private val DIFF = object : DiffUtil.ItemCallback<YearMonthRow>() {
+                                    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:58:13: error: 'areItemsTheSame' overrides nothing.
+            override fun areItemsTheSame(a: YearMonthRow, b: YearMonthRow) = a.monthKey == b.monthKey
+            ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearAdapter.kt:59:13: error: 'areContentsTheSame' overrides nothing.
+            override fun areContentsTheSame(a: YearMonthRow, b: YearMonthRow) = a == b
+            ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:3:8: error: unresolved reference 'android'.
+import android.content.Intent
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:4:8: error: unresolved reference 'android'.
+import android.os.Bundle
+       ^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:5:8: error: unresolved reference 'androidx'.
+import androidx.appcompat.app.AppCompatActivity
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:6:8: error: unresolved reference 'androidx'.
+import androidx.recyclerview.widget.LinearLayoutManager
+       ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:7:32: error: unresolved reference 'databinding'.
+import com.example.wagetracker.databinding.ActivityYearViewBinding
+                               ^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:9:26: error: unresolved reference 'AppCompatActivity'.
+class YearViewActivity : AppCompatActivity() {
+                         ^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:11:35: error: unresolved reference 'ActivityYearViewBinding'.
+    private lateinit var binding: ActivityYearViewBinding
+                                  ^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:13:25: error: unresolved reference 'lazy'.
+    private val repo by lazy { WageRepository(this) }
+                        ^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:15:5: error: 'onCreate' overrides nothing.
+    override fun onCreate(savedInstanceState: Bundle?) {
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:15:47: error: unresolved reference 'Bundle'.
+    override fun onCreate(savedInstanceState: Bundle?) {
+                                              ^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:16:9: error: unresolved reference 'AppCompatActivity'.
+        super.onCreate(savedInstanceState)
+        ^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:16:15: error: unresolved reference 'onCreate'.
+        super.onCreate(savedInstanceState)
+              ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:17:19: error: unresolved reference 'ActivityYearViewBinding'.
+        binding = ActivityYearViewBinding.inflate(layoutInflater)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:17:51: error: unresolved reference 'layoutInflater'.
+        binding = ActivityYearViewBinding.inflate(layoutInflater)
+                                                  ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:18:9: error: unresolved reference 'setContentView'.
+        setContentView(binding.root)
+        ^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:18:32: error: unresolved reference 'root'.
+        setContentView(binding.root)
+                               ^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:19:9: error: unresolved reference 'setSupportActionBar'.
+        setSupportActionBar(binding.toolbar)
+        ^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:19:37: error: unresolved reference 'toolbar'.
+        setSupportActionBar(binding.toolbar)
+                                    ^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:20:9: error: unresolved reference 'supportActionBar'.
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:21:17: error: unresolved reference 'toolbar'.
+        binding.toolbar.setNavigationOnClickListener { finish() }
+                ^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:21:56: error: unresolved reference 'finish'.
+        binding.toolbar.setNavigationOnClickListener { finish() }
+                                                       ^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:26:38: error: unresolved reference 'split'.
+            val parts = row.monthKey.split("-")
+                                     ^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:28:30: error: no 'get' operator method providing array access.
+                cal.set(parts[0].toInt(), parts[1].toInt() - 1, 1)
+                             ^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:28:48: error: no 'get' operator method providing array access.
+                cal.set(parts[0].toInt(), parts[1].toInt() - 1, 1)
+                                               ^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:30:26: error: unresolved reference 'Intent'.
+            val intent = Intent(this, MainActivity::class.java).apply {
+                         ^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:30:59: error: unresolved reference 'java'.
+            val intent = Intent(this, MainActivity::class.java).apply {
+                                                          ^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:31:17: error: unresolved reference 'putExtra'.
+                putExtra(MainActivity.EXTRA_FOCUS_MONTH, row.monthKey)
+                ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:33:13: error: unresolved reference 'startActivity'.
+            startActivity(intent)
+            ^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:34:13: error: unresolved reference 'finish'.
+            finish()
+            ^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:36:17: error: unresolved reference 'yearRecyclerView'.
+        binding.yearRecyclerView.layoutManager = LinearLayoutManager(this)
+                ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:36:50: error: unresolved reference 'LinearLayoutManager'.
+        binding.yearRecyclerView.layoutManager = LinearLayoutManager(this)
+                                                 ^^^^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:37:17: error: unresolved reference 'yearRecyclerView'.
+        binding.yearRecyclerView.adapter = adapter
+                ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:40:5: error: 'onResume' overrides nothing.
+    override fun onResume() {
+    ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:41:9: error: unresolved reference 'AppCompatActivity'.
+        super.onResume()
+        ^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:41:15: error: unresolved reference 'onResume'.
+        super.onResume()
+              ^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:47:24: error: unresolved reference 'it'.
+            .groupBy { it.monthKey }
+                       ^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:48:20: error: cannot infer type for implicit value parameter 'it'. Specify it explicitly.
+            .map { (monthKey, recs) ->
+                   ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:48:20: error: destructuring of type 'ERROR CLASS: Cannot infer type for parameter <destruct>' requires operator function 'component1()'.
+            .map { (monthKey, recs) ->
+                   ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:48:20: error: destructuring of type 'ERROR CLASS: Cannot infer type for parameter <destruct>' requires operator function 'component2()'.
+            .map { (monthKey, recs) ->
+                   ^^^^^^^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:61:35: error: unresolved reference 'it'.
+            .sortedByDescending { it.monthKey }
+                                  ^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:62:17: error: unresolved reference 'submitList'.
+        adapter.submitList(rows)
+                ^^^^^^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:66:30: error: unresolved reference 'split'.
+        val parts = monthKey.split("-")
+                             ^^^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:72:22: error: no 'get' operator method providing array access.
+        val m = parts[1].toIntOrNull() ?: return monthKey
+                     ^^^
+app\src\main\java\com\example\wagetracker\YearViewActivity.kt:73:22: error: no 'get' operator method providing array access.
+        val y = parts[0].toIntOrNull() ?: return monthKey
+                     ^^^
