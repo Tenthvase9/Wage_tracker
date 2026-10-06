@@ -107,16 +107,32 @@ class WageRepository(context: Context) {
 
     fun markMonthPaid(record: PaidMonthRecord) {
         val idx = _paid.indexOfFirst { it.monthKey == record.monthKey }
-        if (idx >= 0) _paid[idx] = record else _paid.add(record)
+        val merged = if (idx >= 0) {
+            val existing = _paid[idx]
+            record.copy(
+                totalHours = existing.totalHours,
+                wagesOwed = existing.wagesOwed,
+                wagesPaid = existing.wagesPaid,
+                wagesPaidDate = existing.wagesPaidDate
+            )
+        } else record
+        if (idx >= 0) _paid[idx] = merged else _paid.add(merged)
         persistPaid()
     }
 
     fun unmarkMonthPaid(monthKey: String) {
         val idx = _paid.indexOfFirst { it.monthKey == monthKey }
-        if (idx >= 0) {
-            _paid.removeAt(idx)
-            persistPaid()
-        }
+        if (idx < 0) return
+        val updated = _paid[idx].copy(
+            paidDate = "",
+            amountOwed = 0.0,
+            paidAmount = 0.0,
+            totalCardTips = 0.0,
+            totalCashTips = 0.0,
+            totalCashPaidIn = 0.0
+        )
+        if (updated.wagesPaidDate.isEmpty()) _paid.removeAt(idx) else _paid[idx] = updated
+        persistPaid()
     }
 
     fun clearAll() {
