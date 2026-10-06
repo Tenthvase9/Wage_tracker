@@ -16,5 +16,5 @@
         android:icon="@drawable/ic_year" />
     <item
         android:id="@+id/action_mark_wages_paid"
-        android:title="Mark wages paid" />
+        android:title="@string/action_mark_wages_paid" />
 </menu>
