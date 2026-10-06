@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wagetracker.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
@@ -447,6 +448,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun toast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun hourlyRate(): Double {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        return parseAmount(prefs.getString("hourly_rate", "0") ?: "0")
     }
 
     private fun parseAmount(text: String): Double =

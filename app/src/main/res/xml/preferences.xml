@@ -2,6 +2,14 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <PreferenceCategory app:title="Wages">
+        <EditTextPreference
+            app:key="hourly_rate"
+            app:title="Hourly rate (R)"
+            app:summary="Used to calculate wages from hours worked"
+            app:defaultValue="0" />
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="Appearance">
         <SwitchPreferenceCompat
             app:key="dark_mode"
