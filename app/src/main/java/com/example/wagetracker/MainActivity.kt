@@ -242,9 +242,9 @@ class MainActivity : AppCompatActivity() {
                     toast(getString(R.string.msg_pick_date))
                     return@setPositiveButton
                 }
-                val card = etCardTips.text.toString().toDoubleOrNull() ?: 0.0
-                val cash = etCashTips.text.toString().toDoubleOrNull() ?: 0.0
-                val paidIn = etCashPaidIn.text.toString().toDoubleOrNull() ?: 0.0
+                val card = parseAmount(etCardTips.text.toString())
+                val cash = parseAmount(etCashTips.text.toString())
+                val paidIn = parseAmount(etCashPaidIn.text.toString())
                 if (card < 0 || cash < 0 || paidIn < 0) {
                     toast("Negative values not allowed")
                     return@setPositiveButton
@@ -281,9 +281,9 @@ class MainActivity : AppCompatActivity() {
         etDate.setText(record.date)
         etDate.tag = record.isoDate
         etDate.setOnClickListener { pickDateInto(etDate) }
-        etCardTips.setText(if (record.cardTips > 0) "%.2f".format(record.cardTips) else "")
-        etCashTips.setText(if (record.cashTips > 0) "%.2f".format(record.cashTips) else "")
-        etCashPaidIn.setText(if (record.cashPaidIn > 0) "%.2f".format(record.cashPaidIn) else "")
+        etCardTips.setText(if (record.cardTips > 0) "%.2f".format(java.util.Locale.ENGLISH, record.cardTips) else "")
+        etCashTips.setText(if (record.cashTips > 0) "%.2f".format(java.util.Locale.ENGLISH, record.cashTips) else "")
+        etCashPaidIn.setText(if (record.cashPaidIn > 0) "%.2f".format(java.util.Locale.ENGLISH, record.cashPaidIn) else "")
         etNotes.setText(record.notes)
         swDayOff.isChecked = record.isOff
 
@@ -292,9 +292,9 @@ class MainActivity : AppCompatActivity() {
             .setView(view)
             .setPositiveButton(android.R.string.ok) { _, _ ->
                 val iso = (etDate.tag as? String) ?: record.isoDate
-                val card = etCardTips.text.toString().toDoubleOrNull() ?: 0.0
-                val cash = etCashTips.text.toString().toDoubleOrNull() ?: 0.0
-                val paidIn = etCashPaidIn.text.toString().toDoubleOrNull() ?: 0.0
+                val card = parseAmount(etCardTips.text.toString())
+                val cash = parseAmount(etCashTips.text.toString())
+                val paidIn = parseAmount(etCashPaidIn.text.toString())
                 if (card < 0 || cash < 0 || paidIn < 0) {
                     toast("Negative values not allowed")
                     return@setPositiveButton
@@ -378,9 +378,9 @@ class MainActivity : AppCompatActivity() {
             tvInfo.text = "$monthName is currently marked as PAID.\n\nTap confirm to REVERSE."
             tilPaid.visibility = View.GONE
         } else {
-            tvInfo.text = "$monthName\nAmount owed: R${"%.2f".format(owed)}"
+            tvInfo.text = "$monthName\nAmount owed: R${"%.2f".format(java.util.Locale.ENGLISH, owed)}"
             tilPaid.visibility = View.VISIBLE
-            etPaid.setText("%.2f".format(owed))
+            etPaid.setText("%.2f".format(java.util.Locale.ENGLISH, owed))
         }
 
         AlertDialog.Builder(this)
@@ -391,7 +391,7 @@ class MainActivity : AppCompatActivity() {
                     repo.unmarkMonthPaid(monthKey)
                     toast(getString(R.string.msg_unpaid, monthName))
                 } else {
-                    val paidAmount = etPaid.text.toString().toDoubleOrNull() ?: owed
+                    val paidAmount = parseAmount(etPaid.text.toString())
                     val totals = MonthSummaryCalculator.summarize(repo.records, monthKey)
                     val record = PaidMonthRecord(
                         monthKey = monthKey,
@@ -448,4 +448,7 @@ class MainActivity : AppCompatActivity() {
     private fun toast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
+    private fun parseAmount(text: String): Double =
+        text.trim().replace(',', '.').toDoubleOrNull() ?: 0.0
 }
