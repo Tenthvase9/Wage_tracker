@@ -222,6 +222,32 @@ class MainActivity : AppCompatActivity() {
         val etNotes = view.findViewById<EditText>(R.id.etNotes)
         val swDayOff = view.findViewById<com.google.android.material.materialswitch.MaterialSwitch>(R.id.swDayOff)
 
+        val etHours = view.findViewById<EditText>(R.id.etHours)
+        val etWages = view.findViewById<EditText>(R.id.etWages)
+        val cbManual = view.findViewById<com.google.android.material.checkbox.MaterialCheckBox>(R.id.cbManualWage)
+        val tvRate = view.findViewById<android.widget.TextView>(R.id.tvWageRate)
+
+        val rate = hourlyRate()
+        tvRate.text = "Rate: R${"%.2f".format(java.util.Locale.ENGLISH, rate)}/h"
+
+        fun recalcWage() {
+            if (!cbManual.isChecked) {
+                etWages.setText("%.2f".format(java.util.Locale.ENGLISH, parseAmount(etHours.text.toString()) * rate))
+            }
+        }
+        etHours.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
+            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) = recalcWage()
+        })
+        cbManual.setOnCheckedChangeListener { _, checked ->
+            etWages.isEnabled = checked
+            if (!checked) recalcWage()
+        }
+        swDayOff.setOnCheckedChangeListener { _, checked ->
+            if (checked) { etHours.setText(""); etWages.setText("") }
+        }
+
         // Default to today's date
         val prefillCal = Calendar.getInstance()
         val prefillIso = DateUtils.isoFor(
@@ -246,7 +272,9 @@ class MainActivity : AppCompatActivity() {
                 val card = parseAmount(etCardTips.text.toString())
                 val cash = parseAmount(etCashTips.text.toString())
                 val paidIn = parseAmount(etCashPaidIn.text.toString())
-                if (card < 0 || cash < 0 || paidIn < 0) {
+                val hours = if (swDayOff.isChecked) 0.0 else parseAmount(etHours.text.toString())
+                val wage = if (swDayOff.isChecked) 0.0 else parseAmount(etWages.text.toString())
+                if (card < 0 || cash < 0 || paidIn < 0 || hours < 0 || wage < 0) {
                     toast("Negative values not allowed")
                     return@setPositiveButton
                 }
@@ -257,6 +285,7 @@ class MainActivity : AppCompatActivity() {
                     cardTips = card,
                     cashTips = cash,
                     cashPaidIn = paidIn,
+                    hours = hours, wageAmount = wage,
                     isOff = swDayOff.isChecked,
                     notes = etNotes.text.toString().trim()
                 )
@@ -279,6 +308,38 @@ class MainActivity : AppCompatActivity() {
         val etNotes = view.findViewById<EditText>(R.id.etEditNotes)
         val swDayOff = view.findViewById<com.google.android.material.materialswitch.MaterialSwitch>(R.id.swEditDayOff)
 
+        val etHours = view.findViewById<EditText>(R.id.etEditHours)
+        val etWages = view.findViewById<EditText>(R.id.etEditWages)
+        val cbManual = view.findViewById<com.google.android.material.checkbox.MaterialCheckBox>(R.id.cbEditManualWage)
+        val tvRate = view.findViewById<android.widget.TextView>(R.id.tvEditWageRate)
+
+        val rate = hourlyRate()
+        val lockedRate = if (record.hours > 0) record.wageAmount / record.hours else rate
+        tvRate.text = "Rate: R${"%.2f".format(java.util.Locale.ENGLISH, lockedRate)}/h"
+
+        etHours.setText(if (!record.isOff && record.hours > 0) "%.2f".format(java.util.Locale.ENGLISH, record.hours) else "")
+        etWages.setText(if (!record.isOff && record.wageAmount > 0) "%.2f".format(java.util.Locale.ENGLISH, record.wageAmount) else "")
+        cbManual.isChecked = Math.abs(record.wageAmount - record.hours * rate) > 0.001
+        etWages.isEnabled = cbManual.isChecked
+
+        fun recalcWage() {
+            if (!cbManual.isChecked) {
+                etWages.setText("%.2f".format(java.util.Locale.ENGLISH, parseAmount(etHours.text.toString()) * rate))
+            }
+        }
+        etHours.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
+            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) = recalcWage()
+        })
+        cbManual.setOnCheckedChangeListener { _, checked ->
+            etWages.isEnabled = checked
+            if (!checked) recalcWage()
+        }
+        swDayOff.setOnCheckedChangeListener { _, checked ->
+            if (checked) { etHours.setText(""); etWages.setText("") }
+        }
+
         etDate.setText(record.date)
         etDate.tag = record.isoDate
         etDate.setOnClickListener { pickDateInto(etDate) }
@@ -296,7 +357,9 @@ class MainActivity : AppCompatActivity() {
                 val card = parseAmount(etCardTips.text.toString())
                 val cash = parseAmount(etCashTips.text.toString())
                 val paidIn = parseAmount(etCashPaidIn.text.toString())
-                if (card < 0 || cash < 0 || paidIn < 0) {
+                val hours = if (swDayOff.isChecked) 0.0 else parseAmount(etHours.text.toString())
+                val wage = if (swDayOff.isChecked) 0.0 else parseAmount(etWages.text.toString())
+                if (card < 0 || cash < 0 || paidIn < 0 || hours < 0 || wage < 0) {
                     toast("Negative values not allowed")
                     return@setPositiveButton
                 }
@@ -306,6 +369,7 @@ class MainActivity : AppCompatActivity() {
                     cardTips = card,
                     cashTips = cash,
                     cashPaidIn = paidIn,
+                    hours = hours, wageAmount = wage,
                     notes = etNotes.text.toString().trim(),
                     isOff = swDayOff.isChecked
                 )
@@ -319,6 +383,7 @@ class MainActivity : AppCompatActivity() {
                     cardTips = 0.0,
                     cashTips = 0.0,
                     cashPaidIn = 0.0,
+                    hours = 0.0, wageAmount = 0.0,
                     notes = "",
                     isOff = swDayOff.isChecked
                 ))
