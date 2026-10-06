@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.action_settings -> { startActivity(Intent(this, SettingsActivity::class.java)); true }
                 R.id.action_dashboard -> { startActivity(Intent(this, DashboardActivity::class.java)); true }
                 R.id.action_year_view -> { startActivity(Intent(this, YearViewActivity::class.java)); true }
+                R.id.action_mark_wages_paid -> { showWagesPaidDialog(); true }
                 else -> false
             }
         }
@@ -476,6 +477,52 @@ class MainActivity : AppCompatActivity() {
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
+    }
+
+    private fun showWagesPaidDialog() {
+        val monthKey = MonthSummaryCalculator.monthKey(currentMonth)
+        val monthName = MonthSummaryCalculator.monthName(currentMonth)
+        val isAlreadyPaid = repo.wagesPaid(monthKey)
+        val totals = MonthSummaryCalculator.summarize(repo.records, monthKey)
+
+        val view = layoutInflater.inflate(R.layout.dialog_paid_month, null)
+        val tvInfo = view.findViewById<android.widget.TextView>(R.id.tvMonthInfo)
+        val tilPaid = view.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilPaidAmount)
+        val etPaid = view.findViewById<android.widget.EditText>(R.id.etPaidAmount)
+
+        if (isAlreadyPaid) {
+            tvInfo.text = "$monthName wages are currently marked as PAID.\n\nTap confirm to REVERSE."
+            tilPaid.visibility = View.GONE
+        } else {
+            tvInfo.text = "$monthName\nWages owed: R${"%.2f".format(java.util.Locale.ENGLISH, totals.wages)}"
+            tilPaid.visibility = View.VISIBLE
+            etPaid.setText("%.2f".format(java.util.Locale.ENGLISH, totals.wages))
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.dialog_wages_paid_title)
+            .setView(view)
+            .setPositiveButton(if (isAlreadyPaid) "Reverse" else "Confirm") { _, _ ->
+                if (isAlreadyPaid) {
+                    repo.unmarkWagesPaid(monthKey)
+                    toast(getString(R.string.msg_wages_unpaid, monthName))
+                } else {
+                    val paidAmount = parseAmount(etPaid.text.toString())
+                    repo.markWagesPaid(monthKey, monthName, totals.wages, paidAmount, totals.hours)
+                    toast(getString(R.string.msg_wages_paid, monthName))
+                }
+                refresh()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        val monthKey = MonthSummaryCalculator.monthKey(currentMonth)
+        val wagesOwed = MonthSummaryCalculator.summarize(repo.records, monthKey).wages
+        menu.findItem(R.id.action_mark_wages_paid)?.isEnabled =
+            wagesOwed > 0 && !repo.wagesPaid(monthKey)
+        return super.onPrepareOptionsMenu(menu)
     }
 
     private fun shareMonth() {

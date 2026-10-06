@@ -46,6 +46,10 @@
     <string name="undo_delete">Deleted %1$s · Undo</string>
     <string name="msg_paid">%1$s marked as paid</string>
     <string name="msg_unpaid">%1$s marked as unpaid</string>
+    <string name="action_mark_wages_paid">Mark wages paid</string>
+    <string name="dialog_wages_paid_title">Mark wages paid</string>
+    <string name="msg_wages_paid">%1$s wages marked as paid</string>
+    <string name="msg_wages_unpaid">%1$s wages marked as unpaid</string>
     <string name="msg_added">Added %1$s</string>
     <string name="msg_updated">Updated %1$s</string>
     <string name="msg_no_amount_owed">No amount owed for %1$s</string>

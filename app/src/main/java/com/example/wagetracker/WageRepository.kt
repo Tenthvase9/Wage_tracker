@@ -62,9 +62,48 @@ class WageRepository(context: Context) {
         persist()
     }
 
-    fun monthPaid(monthKey: String): Boolean = _paid.any { it.monthKey == monthKey }
+    fun monthPaid(monthKey: String): Boolean =
+        _paid.any { it.monthKey == monthKey && it.paidDate.isNotEmpty() }
 
     fun paidRecord(monthKey: String): PaidMonthRecord? = _paid.firstOrNull { it.monthKey == monthKey }
+
+    fun wagesPaid(monthKey: String): Boolean =
+        _paid.any { it.monthKey == monthKey && it.wagesPaidDate.isNotEmpty() }
+
+    fun markWagesPaid(monthKey: String, monthName: String, wagesOwed: Double, wagesPaid: Double, totalHours: Double) {
+        val idx = _paid.indexOfFirst { it.monthKey == monthKey }
+        val existing = if (idx >= 0) _paid[idx] else PaidMonthRecord(
+            monthKey = monthKey,
+            monthName = monthName,
+            paidDate = "",
+            amountOwed = 0.0,
+            paidAmount = 0.0,
+            totalCardTips = 0.0,
+            totalCashTips = 0.0,
+            totalCashPaidIn = 0.0
+        )
+        val updated = existing.copy(
+            totalHours = totalHours,
+            wagesOwed = wagesOwed,
+            wagesPaid = wagesPaid,
+            wagesPaidDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+        )
+        if (idx >= 0) _paid[idx] = updated else _paid.add(updated)
+        persistPaid()
+    }
+
+    fun unmarkWagesPaid(monthKey: String) {
+        val idx = _paid.indexOfFirst { it.monthKey == monthKey }
+        if (idx < 0) return
+        val updated = _paid[idx].copy(
+            totalHours = 0.0,
+            wagesOwed = 0.0,
+            wagesPaid = 0.0,
+            wagesPaidDate = ""
+        )
+        if (updated.paidDate.isEmpty()) _paid.removeAt(idx) else _paid[idx] = updated
+        persistPaid()
+    }
 
     fun markMonthPaid(record: PaidMonthRecord) {
         val idx = _paid.indexOfFirst { it.monthKey == record.monthKey }
