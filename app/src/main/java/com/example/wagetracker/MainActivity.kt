@@ -182,6 +182,19 @@ class MainActivity : AppCompatActivity() {
         binding.tvTotalAllTips.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, rawTotals.tips)}"
         binding.tvTotalPaidIn.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, rawTotals.cashPaidIn)}"
 
+        // Wages card
+        val wagesIsPaid = repo.wagesPaid(monthKey)
+        binding.tvWagesAmount.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, if (wagesIsPaid) 0.0 else rawTotals.wages)}"
+        binding.tvWagesHours.text = MonthSummaryCalculator.formatHours(rawTotals.hours)
+        binding.chipWagesStatus.text = if (wagesIsPaid) "Wages paid · tap to reverse" else "Mark wages paid"
+        binding.chipWagesStatus.setChipBackgroundColorResource(
+            if (wagesIsPaid) R.color.wage_paid else android.R.color.white
+        )
+        binding.chipWagesStatus.setTextColor(
+            if (wagesIsPaid) 0xFFFFFFFF.toInt() else getColor(R.color.brand_primary)
+        )
+        binding.chipWagesStatus.setOnClickListener { showWagesPaidDialog() }
+
         // List
         val list = repo.records
             .filter { it.monthKey == monthKey }
@@ -191,6 +204,7 @@ class MainActivity : AppCompatActivity() {
         adapter.submitList(monthRecords.toList())
         binding.tvEmptyState.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
 
+        invalidateOptionsMenu()
         WageWidgetProvider.refreshAll(this)
     }
 

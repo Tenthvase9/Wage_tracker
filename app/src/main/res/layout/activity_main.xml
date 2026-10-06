@@ -145,6 +145,73 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- Wages card (separate from tips owed) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/wagesCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeColor="?attr/colorOutline"
+        app:strokeWidth="1dp"
+        app:contentPadding="14dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WAGES"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.08"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvWagesAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R0"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:fontFeatureSettings="tnum" />
+
+                <TextView
+                    android:id="@+id/tvWagesHours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 hours"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipWagesStatus"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mark wages paid"
+                app:chipIcon="@drawable/ic_check"
+                app:chipBackgroundColor="#FFFFFF"
+                android:textColor="?attr/colorPrimary"
+                app:chipIconTint="?attr/colorPrimary" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
     <!-- Four mini cards: card tips, cash tips, total tips, cash paid in -->
     <LinearLayout
         android:layout_width="match_parent"
