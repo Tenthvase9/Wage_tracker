@@ -46,9 +46,15 @@ class WageWidgetProvider : AppWidgetProvider() {
                     R.id.widgetSub,
                     if (isPaid) "Paid in full" else "Card ${"%.0f".format(totals.cardTips)} + Paid in ${"%.0f".format(totals.cashPaidIn)}"
                 )
+                val wagesIsPaid = repo.wagesPaid(monthKey)
+                views.setTextViewText(
+                    R.id.widgetWages,
+                    if (wagesIsPaid) "Wages: paid" else "Wages R${"%.0f".format(totals.wages)} · ${MonthSummaryCalculator.formatHours(totals.hours)}"
+                )
             } else {
                 views.setTextViewText(R.id.widgetOwed, context.getString(R.string.widget_empty))
                 views.setTextViewText(R.id.widgetSub, "Tap to open")
+                views.setTextViewText(R.id.widgetWages, "")
             }
 
             val openIntent = Intent(context, MainActivity::class.java)
