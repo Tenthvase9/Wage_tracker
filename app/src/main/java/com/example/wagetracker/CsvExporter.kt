@@ -39,7 +39,7 @@ object CsvExporter {
         }
         sb.appendLine()
         sb.appendLine("Totals,${"%.2f".format(java.util.Locale.ENGLISH, totals.cardTips)},${"%.2f".format(java.util.Locale.ENGLISH, totals.cashTips)},${"%.2f".format(java.util.Locale.ENGLISH, totals.cashPaidIn)},${"%.2f".format(java.util.Locale.ENGLISH, totals.hours)},${"%.2f".format(java.util.Locale.ENGLISH, totals.wages)},,")
-        sb.appendLine("You are owed,${"%.2f".format(totals.owed)},,,")
+        sb.appendLine("You are owed,${"%.2f".format(java.util.Locale.ENGLISH, totals.owed)},,,")
         writeUri(context, uri, sb.toString())
     }
 
