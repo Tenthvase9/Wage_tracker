@@ -8,8 +8,15 @@ data class PaidMonthRecord(
     val paidAmount: Double,       // amount actually paid (may be < amountOwed)
     val totalCardTips: Double,
     val totalCashTips: Double,
-    val totalCashPaidIn: Double
+    val totalCashPaidIn: Double,
+    val totalHours: Double = 0.0,
+    val wagesOwed: Double = 0.0,
+    val wagesPaid: Double = 0.0,
+    val wagesPaidDate: String = ""
 ) {
     val shortBy: Double
         get() = (amountOwed - paidAmount).coerceAtLeast(0.0)
+
+    val wagesShortBy: Double
+        get() = (wagesOwed - wagesPaid).coerceAtLeast(0.0)
 }

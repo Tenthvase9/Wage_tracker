@@ -50,7 +50,15 @@ class SettingsActivity : AppCompatActivity() {
             if (uri == null) return@registerForActivityResult
             val error = BackupManager.restoreWithError(requireContext(), uri)
             if (error == null) {
-                Toast.makeText(requireContext(), "Data restored", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Data restored. Restarting...", Toast.LENGTH_SHORT).show()
+                val intent = requireContext().packageManager
+                    .getLaunchIntentForPackage(requireContext().packageName)
+                intent?.addFlags(
+                    android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                        android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+                )
+                requireContext().startActivity(intent)
+                Runtime.getRuntime().exit(0)
             } else {
                 Toast.makeText(requireContext(), "Restore failed: $error", Toast.LENGTH_LONG).show()
             }
@@ -89,6 +97,14 @@ class SettingsActivity : AppCompatActivity() {
             val ctx = requireContext()
             val prefs = preferenceManager.sharedPreferences!!
             updateReminderTimeSummary(prefs.getInt("reminder_hour", 20), prefs.getInt("reminder_minute", 0))
+
+            val versionName = try {
+                ctx.packageManager.getPackageInfo(ctx.packageName, 0).versionName
+            } catch (e: Exception) {
+                null
+            }
+            findPreference<androidx.preference.Preference>("version")?.summary =
+                "Version ${versionName ?: "Unknown"}"
 
             // Daily reminder
             findPreference<androidx.preference.SwitchPreferenceCompat>("reminder_enabled")

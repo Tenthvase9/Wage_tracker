@@ -15,6 +15,7 @@ data class YearMonthRow(
     val owed: Double,
     val paid: Double,
     val short: Double,
+    val wages: Double,
     val isPaid: Boolean
 )
 
@@ -38,6 +39,7 @@ class YearAdapter(
             tvYearTips.text = "R${"%.0f".format(row.tips)}"
             tvYearOwed.text = if (row.isPaid) "R0" else "R${"%.0f".format(row.owed)}"
             tvYearPaid.text = "R${"%.0f".format(row.paid)}"
+            tvYearWages.text = "R${"%.0f".format(row.wages)}"
             chipYearStatus.text = if (row.isPaid) "PAID" else "UNPAID"
             chipYearStatus.setChipBackgroundColorResource(
                 if (row.isPaid) R.color.wage_paid else R.color.wage_short

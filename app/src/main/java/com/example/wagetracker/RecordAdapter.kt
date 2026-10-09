@@ -41,11 +41,19 @@ class RecordAdapter(
                 tvCashPaidIn.text = "-"
                 tvDayTotal.text = "-"
                 tvDayTotal.visibility = View.VISIBLE
+                tvWages.text = "-"
+                tvWages.visibility = View.VISIBLE
             } else {
                 tvCardTips.text = String.format("R%.0f", record.cardTips)
                 tvCashTips.text = String.format("R%.0f", record.cashTips)
                 tvCashPaidIn.text = String.format("R%.0f", record.cashPaidIn)
                 tvDayTotal.text = String.format("R%.0f", record.dayTotal)
+                if (record.hours > 0 || record.wageAmount > 0) {
+                    tvWages.visibility = View.VISIBLE
+                    tvWages.text = "Wages: R${"%.0f".format(record.wageAmount)} · ${MonthSummaryCalculator.formatHours(record.hours)}"
+                } else {
+                    tvWages.visibility = View.GONE
+                }
             }
 
             if (record.notes.isNotBlank()) {

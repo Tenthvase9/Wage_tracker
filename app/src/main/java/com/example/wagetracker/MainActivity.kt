@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wagetracker.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.action_settings -> { startActivity(Intent(this, SettingsActivity::class.java)); true }
                 R.id.action_dashboard -> { startActivity(Intent(this, DashboardActivity::class.java)); true }
                 R.id.action_year_view -> { startActivity(Intent(this, YearViewActivity::class.java)); true }
+                R.id.action_mark_wages_paid -> { showWagesPaidDialog(); true }
                 else -> false
             }
         }
@@ -180,6 +182,19 @@ class MainActivity : AppCompatActivity() {
         binding.tvTotalAllTips.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, rawTotals.tips)}"
         binding.tvTotalPaidIn.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, rawTotals.cashPaidIn)}"
 
+        // Wages card
+        val wagesIsPaid = repo.wagesPaid(monthKey)
+        binding.tvWagesAmount.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, if (wagesIsPaid) 0.0 else rawTotals.wages)}"
+        binding.tvWagesHours.text = MonthSummaryCalculator.formatHours(rawTotals.hours)
+        binding.chipWagesStatus.text = if (wagesIsPaid) "Wages paid · tap to reverse" else "Mark wages paid"
+        binding.chipWagesStatus.setChipBackgroundColorResource(
+            if (wagesIsPaid) R.color.wage_paid else android.R.color.white
+        )
+        binding.chipWagesStatus.setTextColor(
+            if (wagesIsPaid) 0xFFFFFFFF.toInt() else getColor(R.color.brand_primary)
+        )
+        binding.chipWagesStatus.setOnClickListener { showWagesPaidDialog() }
+
         // List
         val list = repo.records
             .filter { it.monthKey == monthKey }
@@ -189,6 +204,7 @@ class MainActivity : AppCompatActivity() {
         adapter.submitList(monthRecords.toList())
         binding.tvEmptyState.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
 
+        invalidateOptionsMenu()
         WageWidgetProvider.refreshAll(this)
     }
 
@@ -221,6 +237,32 @@ class MainActivity : AppCompatActivity() {
         val etNotes = view.findViewById<EditText>(R.id.etNotes)
         val swDayOff = view.findViewById<com.google.android.material.materialswitch.MaterialSwitch>(R.id.swDayOff)
 
+        val etHours = view.findViewById<EditText>(R.id.etHours)
+        val etWages = view.findViewById<EditText>(R.id.etWages)
+        val cbManual = view.findViewById<com.google.android.material.checkbox.MaterialCheckBox>(R.id.cbManualWage)
+        val tvRate = view.findViewById<android.widget.TextView>(R.id.tvWageRate)
+
+        val rate = hourlyRate()
+        tvRate.text = "Rate: R${"%.2f".format(java.util.Locale.ENGLISH, rate)}/h"
+
+        fun recalcWage() {
+            if (!cbManual.isChecked) {
+                etWages.setText("%.2f".format(java.util.Locale.ENGLISH, parseAmount(etHours.text.toString()) * rate))
+            }
+        }
+        etHours.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
+            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) = recalcWage()
+        })
+        cbManual.setOnCheckedChangeListener { _, checked ->
+            etWages.isEnabled = checked
+            if (!checked) recalcWage()
+        }
+        swDayOff.setOnCheckedChangeListener { _, checked ->
+            if (checked) { etHours.setText(""); etWages.setText("") }
+        }
+
         // Default to today's date
         val prefillCal = Calendar.getInstance()
         val prefillIso = DateUtils.isoFor(
@@ -245,7 +287,9 @@ class MainActivity : AppCompatActivity() {
                 val card = parseAmount(etCardTips.text.toString())
                 val cash = parseAmount(etCashTips.text.toString())
                 val paidIn = parseAmount(etCashPaidIn.text.toString())
-                if (card < 0 || cash < 0 || paidIn < 0) {
+                val hours = if (swDayOff.isChecked) 0.0 else parseAmount(etHours.text.toString())
+                val wage = if (swDayOff.isChecked) 0.0 else parseAmount(etWages.text.toString())
+                if (card < 0 || cash < 0 || paidIn < 0 || hours < 0 || wage < 0) {
                     toast("Negative values not allowed")
                     return@setPositiveButton
                 }
@@ -256,6 +300,7 @@ class MainActivity : AppCompatActivity() {
                     cardTips = card,
                     cashTips = cash,
                     cashPaidIn = paidIn,
+                    hours = hours, wageAmount = wage,
                     isOff = swDayOff.isChecked,
                     notes = etNotes.text.toString().trim()
                 )
@@ -278,6 +323,38 @@ class MainActivity : AppCompatActivity() {
         val etNotes = view.findViewById<EditText>(R.id.etEditNotes)
         val swDayOff = view.findViewById<com.google.android.material.materialswitch.MaterialSwitch>(R.id.swEditDayOff)
 
+        val etHours = view.findViewById<EditText>(R.id.etEditHours)
+        val etWages = view.findViewById<EditText>(R.id.etEditWages)
+        val cbManual = view.findViewById<com.google.android.material.checkbox.MaterialCheckBox>(R.id.cbEditManualWage)
+        val tvRate = view.findViewById<android.widget.TextView>(R.id.tvEditWageRate)
+
+        val rate = hourlyRate()
+        val lockedRate = if (record.hours > 0) record.wageAmount / record.hours else rate
+        tvRate.text = "Rate: R${"%.2f".format(java.util.Locale.ENGLISH, lockedRate)}/h"
+
+        etHours.setText(if (!record.isOff && record.hours > 0) "%.2f".format(java.util.Locale.ENGLISH, record.hours) else "")
+        etWages.setText(if (!record.isOff && record.wageAmount > 0) "%.2f".format(java.util.Locale.ENGLISH, record.wageAmount) else "")
+        cbManual.isChecked = Math.abs(record.wageAmount - record.hours * rate) > 0.001
+        etWages.isEnabled = cbManual.isChecked
+
+        fun recalcWage() {
+            if (!cbManual.isChecked) {
+                etWages.setText("%.2f".format(java.util.Locale.ENGLISH, parseAmount(etHours.text.toString()) * rate))
+            }
+        }
+        etHours.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
+            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) = recalcWage()
+        })
+        cbManual.setOnCheckedChangeListener { _, checked ->
+            etWages.isEnabled = checked
+            if (!checked) recalcWage()
+        }
+        swDayOff.setOnCheckedChangeListener { _, checked ->
+            if (checked) { etHours.setText(""); etWages.setText("") }
+        }
+
         etDate.setText(record.date)
         etDate.tag = record.isoDate
         etDate.setOnClickListener { pickDateInto(etDate) }
@@ -295,7 +372,9 @@ class MainActivity : AppCompatActivity() {
                 val card = parseAmount(etCardTips.text.toString())
                 val cash = parseAmount(etCashTips.text.toString())
                 val paidIn = parseAmount(etCashPaidIn.text.toString())
-                if (card < 0 || cash < 0 || paidIn < 0) {
+                val hours = if (swDayOff.isChecked) 0.0 else parseAmount(etHours.text.toString())
+                val wage = if (swDayOff.isChecked) 0.0 else parseAmount(etWages.text.toString())
+                if (card < 0 || cash < 0 || paidIn < 0 || hours < 0 || wage < 0) {
                     toast("Negative values not allowed")
                     return@setPositiveButton
                 }
@@ -305,6 +384,7 @@ class MainActivity : AppCompatActivity() {
                     cardTips = card,
                     cashTips = cash,
                     cashPaidIn = paidIn,
+                    hours = hours, wageAmount = wage,
                     notes = etNotes.text.toString().trim(),
                     isOff = swDayOff.isChecked
                 )
@@ -318,6 +398,7 @@ class MainActivity : AppCompatActivity() {
                     cardTips = 0.0,
                     cashTips = 0.0,
                     cashPaidIn = 0.0,
+                    hours = 0.0, wageAmount = 0.0,
                     notes = "",
                     isOff = swDayOff.isChecked
                 ))
@@ -412,6 +493,57 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun showWagesPaidDialog() {
+        val monthKey = MonthSummaryCalculator.monthKey(currentMonth)
+        val monthName = MonthSummaryCalculator.monthName(currentMonth)
+        val isAlreadyPaid = repo.wagesPaid(monthKey)
+        val totals = MonthSummaryCalculator.summarize(repo.records, monthKey)
+
+        if (!isAlreadyPaid && totals.wages <= 0) {
+            toast(getString(R.string.msg_no_amount_owed, monthName))
+            return
+        }
+
+        val view = layoutInflater.inflate(R.layout.dialog_paid_month, null)
+        val tvInfo = view.findViewById<android.widget.TextView>(R.id.tvMonthInfo)
+        val tilPaid = view.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilPaidAmount)
+        val etPaid = view.findViewById<android.widget.EditText>(R.id.etPaidAmount)
+
+        if (isAlreadyPaid) {
+            tvInfo.text = "$monthName wages are currently marked as PAID.\n\nTap confirm to REVERSE."
+            tilPaid.visibility = View.GONE
+        } else {
+            tvInfo.text = "$monthName\nWages owed: R${"%.2f".format(java.util.Locale.ENGLISH, totals.wages)}"
+            tilPaid.visibility = View.VISIBLE
+            etPaid.setText("%.2f".format(java.util.Locale.ENGLISH, totals.wages))
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.dialog_wages_paid_title)
+            .setView(view)
+            .setPositiveButton(if (isAlreadyPaid) "Reverse" else "Confirm") { _, _ ->
+                if (isAlreadyPaid) {
+                    repo.unmarkWagesPaid(monthKey)
+                    toast(getString(R.string.msg_wages_unpaid, monthName))
+                } else {
+                    val paidAmount = parseAmount(etPaid.text.toString())
+                    repo.markWagesPaid(monthKey, monthName, totals.wages, paidAmount, totals.hours)
+                    toast(getString(R.string.msg_wages_paid, monthName))
+                }
+                refresh()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        val monthKey = MonthSummaryCalculator.monthKey(currentMonth)
+        val wagesOwed = MonthSummaryCalculator.summarize(repo.records, monthKey).wages
+        menu.findItem(R.id.action_mark_wages_paid)?.isEnabled =
+            wagesOwed > 0 && !repo.wagesPaid(monthKey)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     private fun shareMonth() {
         val monthName = MonthSummaryCalculator.monthName(currentMonth)
         val monthKey = MonthSummaryCalculator.monthKey(currentMonth)
@@ -447,6 +579,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun toast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun hourlyRate(): Double {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        return parseAmount(prefs.getString("hourly_rate", "0") ?: "0")
     }
 
     private fun parseAmount(text: String): Double =

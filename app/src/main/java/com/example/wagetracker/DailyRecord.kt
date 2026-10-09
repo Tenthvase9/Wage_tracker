@@ -7,6 +7,8 @@ data class DailyRecord(
     var cardTips: Double = 0.0,
     var cashTips: Double = 0.0,
     var cashPaidIn: Double = 0.0,
+    var hours: Double = 0.0,
+    var wageAmount: Double = 0.0,
     var isOff: Boolean = false,
     var notes: String = ""
 ) {

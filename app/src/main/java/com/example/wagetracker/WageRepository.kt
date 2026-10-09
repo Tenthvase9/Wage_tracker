@@ -28,6 +28,17 @@ class WageRepository(context: Context) {
             _records.removeAll(bad)
             persist()
         }
+
+        // Old JSON lacks wagesPaidDate; keep the record (tips-paid state lives here).
+        var paidChanged = false
+        for (i in _paid.indices) {
+            val fixed = withWageDefaults(_paid[i])
+            if (fixed !== _paid[i]) {
+                _paid[i] = fixed
+                paidChanged = true
+            }
+        }
+        if (paidChanged) persistPaid()
     }
 
     val records: List<DailyRecord> get() = _records
@@ -62,22 +73,77 @@ class WageRepository(context: Context) {
         persist()
     }
 
-    fun monthPaid(monthKey: String): Boolean = _paid.any { it.monthKey == monthKey }
+    fun monthPaid(monthKey: String): Boolean =
+        _paid.any { it.monthKey == monthKey && it.paidDate.isNotEmpty() }
 
     fun paidRecord(monthKey: String): PaidMonthRecord? = _paid.firstOrNull { it.monthKey == monthKey }
 
+    fun wagesPaid(monthKey: String): Boolean =
+        _paid.any { it.monthKey == monthKey && it.wagesPaidDate.isNotEmpty() }
+
+    fun markWagesPaid(monthKey: String, monthName: String, wagesOwed: Double, wagesPaid: Double, totalHours: Double) {
+        val idx = _paid.indexOfFirst { it.monthKey == monthKey }
+        val existing = if (idx >= 0) _paid[idx] else PaidMonthRecord(
+            monthKey = monthKey,
+            monthName = monthName,
+            paidDate = "",
+            amountOwed = 0.0,
+            paidAmount = 0.0,
+            totalCardTips = 0.0,
+            totalCashTips = 0.0,
+            totalCashPaidIn = 0.0
+        )
+        val updated = existing.copy(
+            totalHours = totalHours,
+            wagesOwed = wagesOwed,
+            wagesPaid = wagesPaid,
+            wagesPaidDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+        )
+        if (idx >= 0) _paid[idx] = updated else _paid.add(updated)
+        persistPaid()
+    }
+
+    fun unmarkWagesPaid(monthKey: String) {
+        val idx = _paid.indexOfFirst { it.monthKey == monthKey }
+        if (idx < 0) return
+        val updated = _paid[idx].copy(
+            totalHours = 0.0,
+            wagesOwed = 0.0,
+            wagesPaid = 0.0,
+            wagesPaidDate = ""
+        )
+        if (updated.paidDate.isEmpty()) _paid.removeAt(idx) else _paid[idx] = updated
+        persistPaid()
+    }
+
     fun markMonthPaid(record: PaidMonthRecord) {
         val idx = _paid.indexOfFirst { it.monthKey == record.monthKey }
-        if (idx >= 0) _paid[idx] = record else _paid.add(record)
+        val merged = if (idx >= 0) {
+            val existing = _paid[idx]
+            record.copy(
+                totalHours = existing.totalHours,
+                wagesOwed = existing.wagesOwed,
+                wagesPaid = existing.wagesPaid,
+                wagesPaidDate = existing.wagesPaidDate
+            )
+        } else withWageDefaults(record)
+        if (idx >= 0) _paid[idx] = merged else _paid.add(merged)
         persistPaid()
     }
 
     fun unmarkMonthPaid(monthKey: String) {
         val idx = _paid.indexOfFirst { it.monthKey == monthKey }
-        if (idx >= 0) {
-            _paid.removeAt(idx)
-            persistPaid()
-        }
+        if (idx < 0) return
+        val updated = _paid[idx].copy(
+            paidDate = "",
+            amountOwed = 0.0,
+            paidAmount = 0.0,
+            totalCardTips = 0.0,
+            totalCashTips = 0.0,
+            totalCashPaidIn = 0.0
+        )
+        if (updated.wagesPaidDate.isEmpty()) _paid.removeAt(idx) else _paid[idx] = updated
+        persistPaid()
     }
 
     fun clearAll() {
@@ -112,5 +178,10 @@ class WageRepository(context: Context) {
         private const val KEY_RECORDS = "records"
         private const val KEY_PAID = "paid_months"
         private const val KEY_DARK = "dark_mode"
+
+        // ponytail: Gson skips Kotlin field defaults for JSON keys absent from old backups/records
+        @Suppress("SENSELESS_COMPARISON")
+        internal fun withWageDefaults(r: PaidMonthRecord): PaidMonthRecord =
+            if (r.wagesPaidDate == null) r.copy(wagesPaidDate = "") else r
     }
 }

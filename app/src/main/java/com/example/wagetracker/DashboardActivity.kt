@@ -35,6 +35,7 @@ class DashboardActivity : AppCompatActivity() {
             binding.tvTotalCardTips.text = "R0"
             binding.tvTotalCashTips.text = "R0"
             binding.tvTotalPaidIn.text = "R0"
+            binding.tvTotalWages.text = "R0"
             binding.tvTotalDays.text = "0"
             binding.tvAvgTips.text = "R0"
             binding.tvBestMonth.text = "-"
@@ -50,11 +51,13 @@ class DashboardActivity : AppCompatActivity() {
         val allCard = records.sumOf { it.cardTips }
         val allCash = records.sumOf { it.cashTips }
         val allPaidIn = records.sumOf { it.cashPaidIn }
+        val allWages = records.sumOf { it.wageAmount }
         val allDays = records.count { !it.isOff }
 
         binding.tvTotalCardTips.text = formatRand(allCard)
         binding.tvTotalCashTips.text = formatRand(allCash)
         binding.tvTotalPaidIn.text = formatRand(allPaidIn)
+        binding.tvTotalWages.text = formatRand(allWages)
         binding.tvTotalDays.text = allDays.toString()
 
         // Per-month totals

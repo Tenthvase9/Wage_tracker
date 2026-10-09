@@ -13,7 +13,9 @@ object MonthSummaryCalculator {
     data class Totals(
         val cardTips: Double,
         val cashTips: Double,
-        val cashPaidIn: Double
+        val cashPaidIn: Double,
+        val hours: Double,
+        val wages: Double
     ) {
         val tips: Double get() = cardTips + cashTips
         // "Owed" = money the house owes the worker for this month.
@@ -25,15 +27,19 @@ object MonthSummaryCalculator {
         var card = 0.0
         var cash = 0.0
         var paidIn = 0.0
+        var hours = 0.0
+        var wages = 0.0
         for (r in records) {
             if (r.monthKey != monthKey) continue
             if (r.isOff) continue
             card += r.cardTips
             cash += r.cashTips
             paidIn += r.cashPaidIn
+            hours += r.hours
+            wages += r.wageAmount
         }
-        return if (isPaid) Totals(0.0, 0.0, 0.0)
-        else Totals(card, cash, paidIn)
+        return if (isPaid) Totals(0.0, 0.0, 0.0, 0.0, 0.0)
+        else Totals(card, cash, paidIn, hours, wages)
     }
 
     fun workedDays(records: List<DailyRecord>, monthKey: String): Int {
@@ -56,4 +62,8 @@ object MonthSummaryCalculator {
         )
         return "${months[calendar.get(Calendar.MONTH)]} ${calendar.get(Calendar.YEAR)}"
     }
+
+    fun formatHours(h: Double): String =
+        if (h >= 0 && h == h.toLong().toDouble()) "${h.toLong()} hours"
+        else "%.1f hours".format(Locale.ENGLISH, h)
 }
