@@ -50,7 +50,15 @@ class SettingsActivity : AppCompatActivity() {
             if (uri == null) return@registerForActivityResult
             val error = BackupManager.restoreWithError(requireContext(), uri)
             if (error == null) {
-                Toast.makeText(requireContext(), "Data restored", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Data restored. Restarting...", Toast.LENGTH_SHORT).show()
+                val intent = requireContext().packageManager
+                    .getLaunchIntentForPackage(requireContext().packageName)
+                intent?.addFlags(
+                    android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                        android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+                )
+                requireContext().startActivity(intent)
+                Runtime.getRuntime().exit(0)
             } else {
                 Toast.makeText(requireContext(), "Restore failed: $error", Toast.LENGTH_LONG).show()
             }
