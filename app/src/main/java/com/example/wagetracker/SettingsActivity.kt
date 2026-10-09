@@ -90,6 +90,14 @@ class SettingsActivity : AppCompatActivity() {
             val prefs = preferenceManager.sharedPreferences!!
             updateReminderTimeSummary(prefs.getInt("reminder_hour", 20), prefs.getInt("reminder_minute", 0))
 
+            val versionName = try {
+                ctx.packageManager.getPackageInfo(ctx.packageName, 0).versionName
+            } catch (e: Exception) {
+                null
+            }
+            findPreference<androidx.preference.Preference>("version")?.summary =
+                "Version ${versionName ?: "Unknown"}"
+
             // Daily reminder
             findPreference<androidx.preference.SwitchPreferenceCompat>("reminder_enabled")
                 ?.setOnPreferenceChangeListener { _, newValue ->
