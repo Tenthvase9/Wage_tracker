@@ -87,6 +87,15 @@
                             android:layout_weight="1"
                             android:orientation="vertical"
                             android:gravity="center">
+                            <TextView android:id="@+id/tvTotalWages" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="R0" android:textColor="@color/wage_owed" android:textSize="20sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Wages" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="11sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
                             <TextView android:id="@+id/tvTotalDays" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="?attr/colorOnSurface" android:textSize="20sp" android:textStyle="bold" />
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Days" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="11sp" />
                         </LinearLayout>

@@ -48,6 +48,7 @@ class YearViewActivity : AppCompatActivity() {
             .map { (monthKey, recs) ->
                 val totals = MonthSummaryCalculator.summarize(recs, monthKey)
                 val paid = repo.paidRecord(monthKey)
+                val wagesSum = recs.sumOf { it.wageAmount }
                 YearMonthRow(
                     monthKey = monthKey,
                     monthName = nameFor(monthKey),
@@ -55,6 +56,7 @@ class YearViewActivity : AppCompatActivity() {
                     owed = if (paid != null) 0.0 else totals.owed,
                     paid = paid?.paidAmount ?: 0.0,
                     short = paid?.shortBy ?: 0.0,
+                    wages = if (paid?.wagesPaidDate?.isNotEmpty() == true) 0.0 else wagesSum,
                     isPaid = paid != null
                 )
             }
