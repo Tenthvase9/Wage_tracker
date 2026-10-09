@@ -28,6 +28,17 @@ class WageRepository(context: Context) {
             _records.removeAll(bad)
             persist()
         }
+
+        // Old JSON lacks wagesPaidDate; keep the record (tips-paid state lives here).
+        var paidChanged = false
+        for (i in _paid.indices) {
+            val fixed = withWageDefaults(_paid[i])
+            if (fixed !== _paid[i]) {
+                _paid[i] = fixed
+                paidChanged = true
+            }
+        }
+        if (paidChanged) persistPaid()
     }
 
     val records: List<DailyRecord> get() = _records
@@ -115,7 +126,7 @@ class WageRepository(context: Context) {
                 wagesPaid = existing.wagesPaid,
                 wagesPaidDate = existing.wagesPaidDate
             )
-        } else record
+        } else withWageDefaults(record)
         if (idx >= 0) _paid[idx] = merged else _paid.add(merged)
         persistPaid()
     }
@@ -167,5 +178,10 @@ class WageRepository(context: Context) {
         private const val KEY_RECORDS = "records"
         private const val KEY_PAID = "paid_months"
         private const val KEY_DARK = "dark_mode"
+
+        // ponytail: Gson skips Kotlin field defaults for JSON keys absent from old backups/records
+        @Suppress("SENSELESS_COMPARISON")
+        internal fun withWageDefaults(r: PaidMonthRecord): PaidMonthRecord =
+            if (r.wagesPaidDate == null) r.copy(wagesPaidDate = "") else r
     }
 }

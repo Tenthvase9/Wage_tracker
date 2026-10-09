@@ -54,8 +54,9 @@ object CsvExporter {
             val totals = MonthSummaryCalculator.summarize(records, monthKey)
             val days = MonthSummaryCalculator.workedDays(records, monthKey)
             val paid = paidMonths.firstOrNull { it.monthKey == monthKey }
-            val status = if (paid != null) "PAID" else "UNPAID"
-            val owed = if (paid != null) 0.0 else totals.owed
+            val tipsPaid = paid?.paidDate?.isNotEmpty() == true
+            val status = if (tipsPaid) "PAID" else "UNPAID"
+            val owed = if (tipsPaid) 0.0 else totals.owed
             val paidAmount = paid?.paidAmount ?: 0.0
             val short = paid?.shortBy ?: 0.0
             val paidDate = paid?.paidDate ?: ""

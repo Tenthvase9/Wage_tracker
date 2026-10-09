@@ -499,6 +499,11 @@ class MainActivity : AppCompatActivity() {
         val isAlreadyPaid = repo.wagesPaid(monthKey)
         val totals = MonthSummaryCalculator.summarize(repo.records, monthKey)
 
+        if (!isAlreadyPaid && totals.wages <= 0) {
+            toast(getString(R.string.msg_no_amount_owed, monthName))
+            return
+        }
+
         val view = layoutInflater.inflate(R.layout.dialog_paid_month, null)
         val tvInfo = view.findViewById<android.widget.TextView>(R.id.tvMonthInfo)
         val tilPaid = view.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilPaidAmount)
