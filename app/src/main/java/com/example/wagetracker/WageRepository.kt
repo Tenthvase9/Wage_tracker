@@ -163,6 +163,11 @@ class WageRepository(context: Context) {
         prefs.edit().putString(KEY_RECORDS, gson.toJson(_records)).apply()
     }
 
+    fun persistSync() {
+        prefs.edit().putString(KEY_RECORDS, gson.toJson(_records)).commit()
+        prefs.edit().putString(KEY_PAID, gson.toJson(_paid)).commit()
+    }
+
     private fun persistPaid() {
         prefs.edit().putString(KEY_PAID, gson.toJson(_paid)).apply()
     }

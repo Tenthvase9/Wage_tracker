@@ -33,6 +33,7 @@ object BackupManager {
             repo.clearAll()
             for (r in data.records) repo.addRecord(r)
             for (p in data.paidMonths) repo.markMonthPaid(p)
+            repo.persistSync()
             true
         } catch (e: Exception) {
             false
@@ -50,6 +51,7 @@ object BackupManager {
             repo.clearAll()
             for (r in data.records) repo.addRecord(r)
             for (p in data.paidMonths) repo.markMonthPaid(p)
+            repo.persistSync()
             null
         } catch (e: Exception) {
             e.message
