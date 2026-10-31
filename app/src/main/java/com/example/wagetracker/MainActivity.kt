@@ -96,6 +96,13 @@ class MainActivity : AppCompatActivity() {
             onEditClick = { record -> showEditDialog(record) }
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        // List life: add/remove/reorder animated through the item animator (submitList diff).
+        binding.recyclerView.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator().apply {
+            addDuration = 250
+            removeDuration = 200
+            changeDuration = 200
+            supportsChangeAnimations = true
+        }
         binding.recyclerView.adapter = adapter
 
         // Swipe left to delete with confirmation dialog
