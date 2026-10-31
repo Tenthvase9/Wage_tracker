@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.View
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -37,6 +38,16 @@ class MainActivity : AppCompatActivity() {
     private val currentMonth: Calendar = Calendar.getInstance()
 
     private val monthRecords: MutableList<DailyRecord> = mutableListOf()
+
+    // Previous values for count-up animation; null = not seeded yet.
+    private var firstRefresh = true
+    private var heroOwedCache: Double? = null
+    private var cardCache: Double? = null
+    private var cashCache: Double? = null
+    private var allCache: Double? = null
+    private var paidInCache: Double? = null
+    private var wagesCache: Double? = null
+    private var hoursCache: Double? = null
 
     private val createMonthCsv = registerForActivityResult(
         ActivityResultContracts.CreateDocument("text/csv")
@@ -157,7 +168,7 @@ class MainActivity : AppCompatActivity() {
 
         // Hero
         val owed = if (isPaid) 0.0 else totals.owed
-        binding.tvHeroAmount.text = "R${"%,.2f".format(java.util.Locale.ENGLISH, owed)}"
+        heroOwedCache = bump(binding.tvHeroAmount, heroOwedCache, owed) { x -> "R${"%,.2f".format(java.util.Locale.ENGLISH, x)}" }
         binding.tvHeroMonth.text = getString(R.string.worked_days, worked)
         binding.chipHeroStatus.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
         binding.chipHeroStatus.setChipBackgroundColorResource(
@@ -177,15 +188,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Mini cards (always show raw totals regardless of paid status)
-        binding.tvTotalCardTips.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, rawTotals.cardTips)}"
-        binding.tvTotalCashTips.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, rawTotals.cashTips)}"
-        binding.tvTotalAllTips.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, rawTotals.tips)}"
-        binding.tvTotalPaidIn.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, rawTotals.cashPaidIn)}"
+        cardCache = bump(binding.tvTotalCardTips, cardCache, rawTotals.cardTips) { x -> "R${"%,.0f".format(java.util.Locale.ENGLISH, x)}" }
+        cashCache = bump(binding.tvTotalCashTips, cashCache, rawTotals.cashTips) { x -> "R${"%,.0f".format(java.util.Locale.ENGLISH, x)}" }
+        allCache = bump(binding.tvTotalAllTips, allCache, rawTotals.tips) { x -> "R${"%,.0f".format(java.util.Locale.ENGLISH, x)}" }
+        paidInCache = bump(binding.tvTotalPaidIn, paidInCache, rawTotals.cashPaidIn) { x -> "R${"%,.0f".format(java.util.Locale.ENGLISH, x)}" }
 
         // Wages card
         val wagesIsPaid = repo.wagesPaid(monthKey)
-        binding.tvWagesAmount.text = "R${"%,.0f".format(java.util.Locale.ENGLISH, if (wagesIsPaid) 0.0 else rawTotals.wages)}"
-        binding.tvWagesHours.text = MonthSummaryCalculator.formatHours(rawTotals.hours)
+        wagesCache = bump(binding.tvWagesAmount, wagesCache, if (wagesIsPaid) 0.0 else rawTotals.wages) { x -> "R${"%,.0f".format(java.util.Locale.ENGLISH, x)}" }
+        hoursCache = bump(binding.tvWagesHours, hoursCache, rawTotals.hours) { x -> MonthSummaryCalculator.formatHours(x) }
         binding.chipWagesStatus.text = if (wagesIsPaid) "Wages paid · tap to reverse" else "Mark wages paid"
         binding.chipWagesStatus.setChipBackgroundColorResource(
             if (wagesIsPaid) R.color.wage_paid else android.R.color.white
@@ -206,6 +217,17 @@ class MainActivity : AppCompatActivity() {
 
         invalidateOptionsMenu()
         WageWidgetProvider.refreshAll(this)
+        firstRefresh = false
+    }
+
+    /** First render (or value unchanged) draws instantly; afterwards animates from previous. */
+    private fun bump(view: TextView, previous: Double?, value: Double, format: (Double) -> String): Double {
+        if (previous == null || firstRefresh || previous == value) {
+            view.text = format(value)
+        } else {
+            Motion.animateCount(view, previous, value, format)
+        }
+        return value
     }
 
     private fun confirmDelete(record: DailyRecord) {
