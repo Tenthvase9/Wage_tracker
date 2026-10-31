@@ -67,10 +67,11 @@ object Motion {
     /** Quick directional settle for content that changes (e.g. month arrows). */
     fun slideMonth(views: List<View>, forward: Boolean, durationMs: Long = 180L) {
         val density = views.firstOrNull()?.context?.resources?.displayMetrics?.density ?: 1f
-        // Cancel in-flight runs first (per-view animators on animate()).
+        // Cancel previous runs of this same slide (per-view ViewPropertyAnimator).
+        // Do NOT cancel ValueAnimators from view.tag: a cross-family cancel here
+        // would freeze in-flight count-ups on the old month's text.
         views.forEach { v ->
             v.animate()?.cancel()
-            (v.tag as? android.animation.ValueAnimator)?.cancel()
         }
         val dx = 24f * density * (if (forward) 1f else -1f)
         views.forEach { v ->

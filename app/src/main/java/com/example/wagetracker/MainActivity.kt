@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                     .setPositiveButton(android.R.string.ok) { _, _ -> deleteWithUndo(record) }
                     .setNegativeButton(android.R.string.cancel) { _, _ -> adapter.notifyItemChanged(pos) }
                     .setOnCancelListener { adapter.notifyItemChanged(pos) }
-                    .show()
+                    .showMotioned()
             }
         }
         ItemTouchHelper(swipeHandler).attachToRecyclerView(binding.recyclerView)
