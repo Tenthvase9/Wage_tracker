@@ -44,22 +44,24 @@ object Motion {
 
     /** Slide-up + fade entrance for the first data display only; callers guard re-runs via tags. */
     fun staggerIn(views: List<View>, baseDelayMs: Int = 40) {
-        val density = views.firstOrNull()?.context?.resources?.displayMetrics?.density ?: 1f
-        val offset = 24f * density
-        views.forEachIndexed { i, v ->
-            if (v.visibility != View.VISIBLE) return@forEachIndexed
-            if (v.tag == "motion_in") return@forEachIndexed
-            v.alpha = 0f
-            v.translationY = offset
-            v.animate()
-                .alpha(1f)
-                .translationY(0f)
-                .setStartDelay(baseDelayMs.toLong() * i)
-                .setDuration(200L)
-                .setInterpolator(DecelerateInterpolator())
-                .withEndAction { v.tag = "motion_in" }
-                .start()
-        }
+        val visible = views.filter { it.visibility == View.VISIBLE }
+        visible.forEachIndexed { i, v -> motionIn(v, i, baseDelayMs) }
+    }
+
+    /** Single-view entrance used by staggerIn and list adapters. */
+    fun motionIn(view: View, step: Int = 0, baseDelayMs: Int = 40) {
+        if (view.tag == "motion_in") return
+        val density = view.context.resources.displayMetrics.density
+        view.alpha = 0f
+        view.translationY = 24f * density
+        view.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setStartDelay(baseDelayMs.toLong() * step)
+            .setDuration(200L)
+            .setInterpolator(DecelerateInterpolator())
+            .withEndAction { view.tag = "motion_in" }
+            .start()
     }
 
     /** Quick directional settle for content that changes (e.g. month arrows). */

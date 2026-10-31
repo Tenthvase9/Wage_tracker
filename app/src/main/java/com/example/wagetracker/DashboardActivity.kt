@@ -54,10 +54,10 @@ class DashboardActivity : AppCompatActivity() {
         val allWages = records.sumOf { it.wageAmount }
         val allDays = records.count { !it.isOff }
 
-        binding.tvTotalCardTips.text = formatRand(allCard)
-        binding.tvTotalCashTips.text = formatRand(allCash)
-        binding.tvTotalPaidIn.text = formatRand(allPaidIn)
-        binding.tvTotalWages.text = formatRand(allWages)
+        Motion.animateCount(binding.tvTotalCardTips, 0.0, allCard, ::formatRand)
+        Motion.animateCount(binding.tvTotalCashTips, 0.0, allCash, ::formatRand)
+        Motion.animateCount(binding.tvTotalPaidIn, 0.0, allPaidIn, ::formatRand)
+        Motion.animateCount(binding.tvTotalWages, 0.0, allWages, ::formatRand)
         binding.tvTotalDays.text = allDays.toString()
 
         // Per-month totals
@@ -68,7 +68,7 @@ class DashboardActivity : AppCompatActivity() {
 
         // Averages
         val avgTips = if (monthStats.isNotEmpty()) monthStats.map { it.tips }.average() else 0.0
-        binding.tvAvgTips.text = formatRand(avgTips)
+        Motion.animateCount(binding.tvAvgTips, 0.0, avgTips, ::formatRand)
 
         // Best / worst
         val best = monthStats.maxByOrNull { it.tips }

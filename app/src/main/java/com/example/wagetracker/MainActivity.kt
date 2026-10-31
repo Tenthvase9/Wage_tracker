@@ -81,9 +81,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         binding.toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.action_settings -> { startActivity(Intent(this, SettingsActivity::class.java)); true }
-                R.id.action_dashboard -> { startActivity(Intent(this, DashboardActivity::class.java)); true }
-                R.id.action_year_view -> { startActivity(Intent(this, YearViewActivity::class.java)); true }
+                R.id.action_settings -> { openWithFade(SettingsActivity::class.java); true }
+                R.id.action_dashboard -> { openWithFade(DashboardActivity::class.java); true }
+                R.id.action_year_view -> { openWithFade(YearViewActivity::class.java); true }
                 R.id.action_mark_wages_paid -> { showWagesPaidDialog(); true }
                 else -> false
             }
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
             createMonthCsv.launch("wage-tracker-$stamp.csv")
         }
         binding.chipHeroStatus.setOnClickListener { showMarkPaidDialog() }
-        binding.dashboardChin.setOnClickListener { startActivity(Intent(this, DashboardActivity::class.java)) }
+        binding.dashboardChin.setOnClickListener { openWithFade(DashboardActivity::class.java) }
 
         Motion.pressScale(binding.chipHeroStatus)
         Motion.pressScale(binding.chipWagesStatus)
@@ -288,6 +288,14 @@ class MainActivity : AppCompatActivity() {
         } else {
             chip.text = label
         }
+    }
+
+    /** 150ms fade on entering tier-2 screens (one mechanism for every launch path). */
+    private fun openWithFade(target: Class<*>) {
+        val opts = androidx.core.app.ActivityOptionsCompat.makeCustomAnimation(
+            this, android.R.anim.fade_in, android.R.anim.fade_out
+        )
+        startActivity(Intent(this, target), opts.toBundle())
     }
 
     /** Uniform subtle enter/exit for all in-app AlertDialogs. */

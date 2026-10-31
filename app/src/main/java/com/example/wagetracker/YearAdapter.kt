@@ -23,6 +23,9 @@ class YearAdapter(
     private val onClick: (YearMonthRow) -> Unit
 ) : ListAdapter<YearMonthRow, YearAdapter.VH>(DIFF) {
 
+    /** Entrance runs on the first data display only; binds afterwards are instant. */
+    private var entranceDone = false
+
     inner class VH(val binding: ItemYearMonthBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -53,6 +56,11 @@ class YearAdapter(
             }
             root.setOnClickListener { onClick(row) }
         }
+        if (!entranceDone) {
+            Motion.motionIn(holder.binding.root, minOf(position, 6))
+        }
+        // End the entrance once the first screenful has been bound (no fast-scroll replay).
+        if (position >= 5) entranceDone = true
     }
 
     companion object {
