@@ -48,6 +48,8 @@ class MainActivity : AppCompatActivity() {
     private var paidInCache: Double? = null
     private var wagesCache: Double? = null
     private var hoursCache: Double? = null
+    private var monthDirection: Boolean? = null
+    private var entranceDone = false
 
     private val createMonthCsv = registerForActivityResult(
         ActivityResultContracts.CreateDocument("text/csv")
@@ -123,10 +125,12 @@ class MainActivity : AppCompatActivity() {
         binding.btnAddRecord.setOnClickListener { showAddDialog() }
         binding.btnPrevMonth.setOnClickListener {
             currentMonth.add(Calendar.MONTH, -1)
+            monthDirection = false
             refresh()
         }
         binding.btnNextMonth.setOnClickListener {
             currentMonth.add(Calendar.MONTH, 1)
+            monthDirection = true
             refresh()
         }
         binding.btnShare.setOnClickListener { shareMonth() }
@@ -215,6 +219,33 @@ class MainActivity : AppCompatActivity() {
         adapter.submitList(monthRecords.toList())
         binding.tvEmptyState.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
 
+        // Month change: directional settle of the content (skipped on first data display).
+        monthDirection?.let { forward ->
+            if (!firstRefresh) {
+                Motion.slideMonth(
+                    listOf(
+                        binding.tvCurrentMonth, binding.heroCard, binding.wagesCard,
+                        binding.tvTotalCardTips, binding.tvTotalCashTips,
+                        binding.tvTotalAllTips, binding.tvTotalPaidIn
+                    ),
+                    forward
+                )
+            }
+            monthDirection = null
+        }
+
+        // Entrance: staggered slide-up + fade on the first data display only.
+        if (!entranceDone) {
+            Motion.staggerIn(
+                listOf(
+                    binding.heroCard, binding.wagesCard,
+                    binding.tvTotalCardTips, binding.tvTotalCashTips,
+                    binding.tvTotalAllTips, binding.tvTotalPaidIn,
+                    binding.tvEmptyState, binding.dashboardChin
+                )
+            )
+            entranceDone = true
+        }
         invalidateOptionsMenu()
         WageWidgetProvider.refreshAll(this)
         firstRefresh = false
