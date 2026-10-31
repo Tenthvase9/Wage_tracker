@@ -261,13 +261,20 @@ class MainActivity : AppCompatActivity() {
         return value
     }
 
+    /** Uniform subtle enter/exit for all in-app AlertDialogs. */
+    private fun AlertDialog.Builder.showMotioned() {
+        val dialog = create()
+        dialog.window?.setWindowAnimations(R.style.MotionDialog)
+        dialog.show()
+    }
+
     private fun confirmDelete(record: DailyRecord) {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.cd_delete))
             .setMessage("Delete ${record.date}?")
             .setPositiveButton(android.R.string.ok) { _, _ -> deleteWithUndo(record) }
             .setNegativeButton(android.R.string.cancel, null)
-            .show()
+            .showMotioned()
     }
 
     private fun deleteWithUndo(record: DailyRecord) {
@@ -364,7 +371,7 @@ class MainActivity : AppCompatActivity() {
                 toast(getString(R.string.msg_added, record.date))
             }
             .setNegativeButton(android.R.string.cancel, null)
-            .show()
+            .showMotioned()
     }
 
     private fun showEditDialog(record: DailyRecord) {
@@ -458,7 +465,7 @@ class MainActivity : AppCompatActivity() {
                 refresh()
             }
             .setNegativeButton(android.R.string.cancel, null)
-            .show()
+            .showMotioned()
     }
 
     private fun pickDateInto(target: EditText) {
@@ -543,7 +550,7 @@ class MainActivity : AppCompatActivity() {
                 refresh()
             }
             .setNegativeButton(android.R.string.cancel, null)
-            .show()
+            .showMotioned()
     }
 
     private fun showWagesPaidDialog() {
@@ -586,7 +593,7 @@ class MainActivity : AppCompatActivity() {
                 refresh()
             }
             .setNegativeButton(android.R.string.cancel, null)
-            .show()
+            .showMotioned()
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
