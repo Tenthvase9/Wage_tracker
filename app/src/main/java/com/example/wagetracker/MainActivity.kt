@@ -148,6 +148,9 @@ class MainActivity : AppCompatActivity() {
         binding.chipHeroStatus.setOnClickListener { showMarkPaidDialog() }
         binding.dashboardChin.setOnClickListener { startActivity(Intent(this, DashboardActivity::class.java)) }
 
+        Motion.pressScale(binding.chipHeroStatus)
+        Motion.pressScale(binding.chipWagesStatus)
+
         refresh()
     }
 
@@ -181,7 +184,10 @@ class MainActivity : AppCompatActivity() {
         val owed = if (isPaid) 0.0 else totals.owed
         heroOwedCache = bump(binding.tvHeroAmount, heroOwedCache, owed) { x -> "R${"%,.2f".format(java.util.Locale.ENGLISH, x)}" }
         binding.tvHeroMonth.text = getString(R.string.worked_days, worked)
-        binding.chipHeroStatus.text = if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+        popChip(
+            binding.chipHeroStatus,
+            if (isPaid) getString(R.string.action_unmark_paid) else getString(R.string.action_mark_paid)
+        )
         binding.chipHeroStatus.setChipBackgroundColorResource(
             if (isPaid) R.color.wage_paid else android.R.color.white
         )
@@ -208,7 +214,10 @@ class MainActivity : AppCompatActivity() {
         val wagesIsPaid = repo.wagesPaid(monthKey)
         wagesCache = bump(binding.tvWagesAmount, wagesCache, if (wagesIsPaid) 0.0 else rawTotals.wages) { x -> "R${"%,.0f".format(java.util.Locale.ENGLISH, x)}" }
         hoursCache = bump(binding.tvWagesHours, hoursCache, rawTotals.hours) { x -> MonthSummaryCalculator.formatHours(x) }
-        binding.chipWagesStatus.text = if (wagesIsPaid) "Wages paid · tap to reverse" else "Mark wages paid"
+        popChip(
+            binding.chipWagesStatus,
+            if (wagesIsPaid) "Wages paid · tap to reverse" else "Mark wages paid"
+        )
         binding.chipWagesStatus.setChipBackgroundColorResource(
             if (wagesIsPaid) R.color.wage_paid else android.R.color.white
         )
@@ -266,6 +275,19 @@ class MainActivity : AppCompatActivity() {
             Motion.animateCount(view, previous, value, format)
         }
         return value
+    }
+
+    /** Sets the text, popping only when it actually changed (scopic refresh() calls stay quiet). */
+    private fun popChip(chip: TextView, label: String) {
+        if (chip.text != label) {
+            chip.text = label
+            chip.animate().scaleX(1.06f).scaleY(1.06f).setDuration(60L)
+                .withEndAction {
+                    chip.animate().scaleX(1f).scaleY(1f).setDuration(60L).start()
+                }.start()
+        } else {
+            chip.text = label
+        }
     }
 
     /** Uniform subtle enter/exit for all in-app AlertDialogs. */
